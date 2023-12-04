@@ -10,9 +10,9 @@ const AcceptButton = ({ buttonText, onClickMethod }) => {
   );
 };
 
-const CancelButton = ({ buttonText, onClickMethod }) => {
+const SecondaryButton = ({ buttonText, onClickMethod }) => {
   return (
-    <Button variant="primary" onClick={onClickMethod} className='cancel-button'>
+    <Button variant="primary" onClick={onClickMethod} className='secondary-button'>
       {buttonText}
     </Button>
   );
@@ -32,4 +32,4 @@ const ExceptionMessage = ({ message }) => {
 
 
 
-export { AcceptButton, CancelButton, ExceptionMessage };
+export { AcceptButton, SecondaryButton, ExceptionMessage };

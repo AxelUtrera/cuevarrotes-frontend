@@ -2,11 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import {RegisterCustomer} from '../src/pages/registerCustomer'
+import { AddAddressCustomer } from '../src/pages/addAddressCustomer'
+import { EditProfileCustomer } from '../src/pages/editProfileCustomer'
+import { RegisterProduct} from '../src/pages/registerProductAdministrator'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     
+    <RegisterCustomer/>
+
   </React.StrictMode>
 );
 
