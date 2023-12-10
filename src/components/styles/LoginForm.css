@@ -1,3 +1,20 @@
+.error-message {
+  font-weight: 600; 
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.input-error {
+  border: 1px solid red;
+  box-shadow: 0 0 5px red;
+}
+
+.input-error:focus {
+  border: 1px solid red;
+  box-shadow: 0 0 5px red;
+}
+
 .login-form h2 {
     color: #ff6600;
     text-align: center;
