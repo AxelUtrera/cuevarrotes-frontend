@@ -3,7 +3,7 @@ import { AcceptButton, ExceptionMessage } from "../components/componentsUI";
 import { Container, Form, Row, Col } from "react-bootstrap";
 import '../components/componentsUI.css'
 
-const phoneNumber = ''
+const customerPhoneNumber = ''
 
 const AddAddressCustomer = () => {
     const [registrationStatus, setRegistrationStatus] = useState(null);
@@ -25,10 +25,12 @@ const AddAddressCustomer = () => {
 
     const autoCompleteRef = useRef();
     const inputRef = useRef();
+
     const options = {
         componentRestrictions: { country: "mx" },
         fields: ["address_components", "geometry", "icon", "name"],
     };
+
     useEffect(() => {
 
         if (!window.google || !window.google.maps || !window.google.maps.places) {
@@ -114,7 +116,7 @@ const AddAddressCustomer = () => {
 
         if (form.checkValidity()) {
             try {
-                const registerResponse = await fetch(`http://127.0.0.1:9000/api/v1/customer/addNewAddress/${phoneNumber}`, {
+                const registerResponse = await fetch(`http://127.0.0.1:9000/api/v1/customer/addNewAddress/${customerPhoneNumber}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
@@ -146,6 +148,7 @@ const AddAddressCustomer = () => {
                 <Form.Group>
                     <Form.Label className="text">Dirección</Form.Label>
                     <Form.Control required type="text" ref={inputRef} />
+
                 </Form.Group>
 
                 <Form.Group controlId="formStreet">
