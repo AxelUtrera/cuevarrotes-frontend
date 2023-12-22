@@ -3,7 +3,7 @@ import { AcceptButton, ExceptionMessage } from "../components/componentsUI";
 import { Container, Form, Row, Col } from "react-bootstrap";
 import '../components/componentsUI.css'
 
-const customerPhoneNumber = ''
+const phoneNumber = ''
 
 const AddAddressCustomer = () => {
     const [registrationStatus, setRegistrationStatus] = useState(null);

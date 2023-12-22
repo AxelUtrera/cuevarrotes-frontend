@@ -5,13 +5,13 @@ import reportWebVitals from './reportWebVitals';
 import {RegisterCustomer} from '../src/pages/registerCustomer'
 import { AddAddressCustomer } from '../src/pages/addAddressCustomer'
 import { EditProfileCustomer } from '../src/pages/editProfileCustomer'
-import { RegisterProduct} from '../src/pages/registerProductAdministrator'
+import { OrderHistory } from '../src/pages/viewOrdersCustomer'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     
-    <RegisterCustomer/>
+    <OrderHistory/>
 
   </React.StrictMode>
 );

@@ -23,7 +23,7 @@ const EditProfileCustomer = () => {
 
     const getCustomerInfo = async (phoneNumber) => {
         try {
-            const response = await fetch(`http://127.0.0.1:9000/api/v1/customer/getCustomerByPhone/${phoneNumber}`, {
+            const response = await fetch(`http://127.0.0.1:9000/api/v1/customer/getCustomerByPhone/9848073096`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
