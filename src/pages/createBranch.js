@@ -12,8 +12,10 @@ function App() {
   const [latitud, setLatitud] = useState('');
   const [longitud, setLongitud] = useState('');
   const [showWarning, setShowWarning] = useState(false);
+  const [showErrorAPI, setShowErrorAPI] = useState(false);
   const [emptyFields, setEmptyFields] = useState([]);
   const [responseMessage, setResponseMessage] = useState('');
+  const [errorAPI, setErrorAPI] = useState('');
 
   const fetchCoordinates = async (address) => {
     try {
@@ -45,6 +47,9 @@ function App() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setShowWarning(false);
+    setShowErrorAPI(false);
+    setResponseMessage('');
     const newEmptyFields = [];
     const trimmedNombreComercial = nombreComercial.trim();
     const trimmedDireccion = direccion.trim();
@@ -76,7 +81,8 @@ function App() {
         await createBranch(branchData);
         setResponseMessage('Sucursal creada exitosamente.');
       } catch (error) {
-        setResponseMessage('Sucursal no se pudo registrar.');
+        setShowErrorAPI(true);
+        setErrorAPI(`${error.message}`);
       }
     }
   };
@@ -137,7 +143,8 @@ function App() {
             </Form.Group>
           </Row>
 
-          {showWarning && <div className="warning-text mb-3">Rellene los datos</div>} 
+          {showWarning && <div className="warning-text mb-3">Rellene los datos</div>}
+          {showErrorAPI && <div className="warning-text mb-3">{errorAPI}</div>} 
           <Button variant="warning" type="submit" className="w-100">
             Registrar
           </Button>

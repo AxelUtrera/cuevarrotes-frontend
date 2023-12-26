@@ -1,10 +1,10 @@
-/* Ajustes generales */
+
 html, body, #root {
   height: 100%;
   margin: 0;
 }
 
-/* Ajustes para el contenedor principal */
+
 .vh-100 {
   height: 100vh;
   display: flex;
@@ -12,7 +12,7 @@ html, body, #root {
   justify-content: center;
 }
 
-/* Estilos para el contenedor del formulario */
+
 .form-container {
   background: white;
   padding: 1.5rem;
@@ -23,7 +23,7 @@ html, body, #root {
   max-width: 360px;
 }
 
-/* Estilos para el botón de regreso */
+
 .back-button {
   color: #ff6600;
   font-size: 1.2rem;
@@ -35,7 +35,6 @@ html, body, #root {
   color: #339900;
 }
 
-/* Estilos para el título 'NUEVA SUCURSAL' */
 .form-title {
   font-size: 2rem;
   font-weight: bold;
@@ -43,31 +42,26 @@ html, body, #root {
   margin-bottom: 2rem;
 }
 
-/* Estilos para las etiquetas de los formularios */
 .form-label {
   color: #ff6600;
   font-size: 1rem;
 }
 
-/* Ajustes para los elementos del formulario */
 .form-group .form-control {
   border-radius: 20px;
   margin: auto;
   width: 90%;
 }
 
-/* Cambios para el input cuando está en foco */
 .form-group .form-control:focus {
   border-color: #ff6600;
   box-shadow: 0 0 5px rgba(255, 102, 0, 0.8);
 }
 
-/* Estilos para campos inválidos */
 .is-invalid {
   border-color: #dc3545;
 }
 
-/* Muestra la retroalimentación de error cuando los campos son inválidos */
 .invalid-feedback {
   display: block;
   width: 100%;
@@ -76,7 +70,6 @@ html, body, #root {
   color: #dc3545;
 }
 
-/* Estilo para el mensaje de advertencia */
 .warning-text {
   color: red;
   font-size: 1rem;
@@ -85,12 +78,11 @@ html, body, #root {
 
 .response-message {
   margin-top: 20px;
-  color: green; /* o rojo para errores, puedes ajustar esto según necesites */
+  color: green; 
   font-weight: bold;
 }
 
 
-/* Ajustes para el botón principal */
 .btn-warning {
   background-color: #ff6600;
   color: white;
@@ -105,17 +97,14 @@ html, body, #root {
   color: white;
 }
 
-/* Asegúrate de que los elementos llenen todo el ancho disponible */
 .w-100 {
   width: 100%;
 }
 
-/* Ajustes para centrar el texto */
 .text-center {
   text-align: center;
 }
 
-/* Estilos adicionales para quitar la decoración del enlace */
 .text-decoration-none {
   text-decoration: none;
 }
