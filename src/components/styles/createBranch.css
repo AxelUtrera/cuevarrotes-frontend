@@ -1,0 +1,121 @@
+/* Ajustes generales */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+/* Ajustes para el contenedor principal */
+.vh-100 {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilos para el contenedor del formulario */
+.form-container {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 4px solid #ff6600;
+  box-shadow: 0 0 15px 5px rgba(255, 102, 0, 0.6);
+  width: 90%;
+  max-width: 360px;
+}
+
+/* Estilos para el botón de regreso */
+.back-button {
+  color: #ff6600;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  border: none;
+}
+
+.back-button:hover {
+  color: #339900;
+}
+
+/* Estilos para el título 'NUEVA SUCURSAL' */
+.form-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff6600;
+  margin-bottom: 2rem;
+}
+
+/* Estilos para las etiquetas de los formularios */
+.form-label {
+  color: #ff6600;
+  font-size: 1rem;
+}
+
+/* Ajustes para los elementos del formulario */
+.form-group .form-control {
+  border-radius: 20px;
+  margin: auto;
+  width: 90%;
+}
+
+/* Cambios para el input cuando está en foco */
+.form-group .form-control:focus {
+  border-color: #ff6600;
+  box-shadow: 0 0 5px rgba(255, 102, 0, 0.8);
+}
+
+/* Estilos para campos inválidos */
+.is-invalid {
+  border-color: #dc3545;
+}
+
+/* Muestra la retroalimentación de error cuando los campos son inválidos */
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: .25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+
+/* Estilo para el mensaje de advertencia */
+.warning-text {
+  color: red;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.response-message {
+  margin-top: 20px;
+  color: green; /* o rojo para errores, puedes ajustar esto según necesites */
+  font-weight: bold;
+}
+
+
+/* Ajustes para el botón principal */
+.btn-warning {
+  background-color: #ff6600;
+  color: white;
+  font-weight: bold;
+  border: none;
+  margin: auto;
+  width: 90%;
+}
+
+.btn-warning:hover {
+  background-color: #339900;
+  color: white;
+}
+
+/* Asegúrate de que los elementos llenen todo el ancho disponible */
+.w-100 {
+  width: 100%;
+}
+
+/* Ajustes para centrar el texto */
+.text-center {
+  text-align: center;
+}
+
+/* Estilos adicionales para quitar la decoración del enlace */
+.text-decoration-none {
+  text-decoration: none;
+}

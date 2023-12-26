@@ -40,7 +40,7 @@ export default function LoginScreen() {
 
     try {
       let encryptedPassword = await encriptPassword(password);
-      console.log(encryptedPassword, phoneNumber);
+      
       const data = await login(phoneNumber, encryptedPassword);
 
       if (data.token) {
@@ -48,7 +48,7 @@ export default function LoginScreen() {
       }
 
       // Maneja la respuesta exitosa, como redirigir, etc.
-      
+
     } catch (error) {
       setError(true);
       setErrorMessage("Conexion no disponible, intente mas tarde");
