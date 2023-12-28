@@ -27,9 +27,14 @@ const ExceptionMessage = ({ message }) => {
   );
 };
 
+const SecondaryButton = ({ buttonText, onClickMethod }) => {
+  return (
+    <Button variant="secondary" onClick={onClickMethod} className='secondary-button'>
+      {buttonText}
+    </Button>
+  );
+};
 
 
 
-
-
-export { AcceptButton, CancelButton, ExceptionMessage };
+export { AcceptButton, CancelButton, ExceptionMessage, SecondaryButton };

@@ -23,4 +23,30 @@ const isCustomerRegistered = async (numberPhone) => {
     return customerResponse
 }
 
-export { createCustomer, isCustomerRegistered}
+async function getPhoneNumber() {
+    try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            throw new Error("No se encontró el token en el localStorage.");
+        }
+
+        const response = await fetch('http://localhost:6969/api/v1/customer/user/phone', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error en la petición: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.phone;
+    } catch (error) {
+        console.error("Error al obtener el número de teléfono:", error.message);
+        return null;
+    }
+}
+
+export { createCustomer, isCustomerRegistered, getPhoneNumber}
