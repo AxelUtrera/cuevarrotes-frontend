@@ -6,14 +6,16 @@ import BackButton from '../components/BackButton';
 import '../components/styles/LoginContainer.css';
 import '../components/styles/LoginForm.css';
 import '../components/styles/Login.css';
-import login from '../Logic/authService'; 
+import login from '../Logic/authService';
 import { encriptPassword } from '../Logic/utilities';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginScreen() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const validatePhone = (phone) => {
     const phoneRegex = /^\d{10}$/;
@@ -22,7 +24,7 @@ export default function LoginScreen() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
+
     setError(false);
     setErrorMessage('');
 
@@ -40,11 +42,16 @@ export default function LoginScreen() {
 
     try {
       let encryptedPassword = await encriptPassword(password);
-      
+
       const data = await login(phoneNumber, encryptedPassword);
 
       if (data.token) {
         localStorage.setItem('token', data.token);
+
+        // Extrae el número de teléfono del token
+        const token = localStorage.getItem('token');
+
+        navigate(`/pedidos`);
       }
 
       // Maneja la respuesta exitosa, como redirigir, etc.
@@ -55,19 +62,24 @@ export default function LoginScreen() {
     }
   };
 
+  const decodeToken = (token) => {
+    const tokenPayload = JSON.parse(atob(token.split('.')[1])); // Decodifica el payload del token
+    return { numTelefono: tokenPayload.numTelefono };
+  };
+
   return (
     <Container className="login-container">
       <BackButton href="/donde-sea" />
       <Form className="login-form" onSubmit={handleLogin}>
         <h2 className="text-center">BIENVENID@ :)</h2>
-        <InputField 
+        <InputField
           label="Ingrese su número telefónico:"
           type="tel"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
           isError={error && (!phoneNumber || !validatePhone(phoneNumber))}
         />
-        <InputField 
+        <InputField
           label="Ingrese su contraseña:"
           type="password"
           value={password}

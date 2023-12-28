@@ -24,7 +24,6 @@ const AddAddressCustomer = () => {
     });
 
     const autoCompleteRef = useRef();
-
     const inputRef = useRef();
 
     const options = {
@@ -43,38 +42,54 @@ const AddAddressCustomer = () => {
             inputRef.current,
             options
         );
+    
+        autoCompleteRef.current.addListener("place_changed", handlePlaceChanged);
+    
+    }, [formData]);
 
-        autoCompleteRef.current.addListener("place_changed", async function () {
-            const place = await autoCompleteRef.current.getPlace();
-            const { lat, lng } = place.geometry.location;
+
+    const handlePlaceChanged = () => {
+        try {
+            const place = autoCompleteRef.current.getPlace();
+    
+            if (!place.geometry || !place.geometry.location) {
+                console.error("La ubicación seleccionada no tiene información de geometría.");
+                return;
+            }
+    
+            const { lat, lng } = place.geometry.location.toJSON();
+    
             setFormData(prevFormData => ({
                 ...prevFormData,
                 ubicacion: {
-                    lat: lat(),
-                    lng: lng()
+                    lat: lat,
+                    lng: lng
                 },
-                calle: place.address_components.find((component) =>
+                calle: place.address_components.find(component =>
                     component.types.includes("route")
                 )?.long_name || "",
-                numExterior: place.address_components.find((component) =>
+                numExterior: place.address_components.find(component =>
                     component.types.includes("street_number")
                 )?.long_name || "",
-                cp: place.address_components.find((component) =>
+                cp: place.address_components.find(component =>
                     component.types.includes("postal_code")
                 )?.long_name || "",
-                colonia: place.address_components.find((component) =>
+                colonia: place.address_components.find(component =>
                     component.types.includes("sublocality_level_1") || component.types.includes("neighborhood")
                 )?.long_name || "",
-                ciudad: place.address_components.find((component) =>
+                ciudad: place.address_components.find(component =>
                     component.types.includes("locality")
                 )?.long_name || "",
-                estado: place.address_components.find((component) =>
+                estado: place.address_components.find(component =>
                     component.types.includes("administrative_area_level_1")
                 )?.long_name || "",
             }));
-        });
-    }, [formData]);
-
+        } catch (error) {
+            console.error('Error al manejar el cambio de lugar:', error);
+        }
+    };
+    
+    
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value, });
@@ -132,7 +147,8 @@ const AddAddressCustomer = () => {
 
                 <Form.Group>
                     <Form.Label className="text">Dirección</Form.Label>
-                    <Form.Control required type="text" ref={inputRef}/>
+                    <Form.Control required type="text" ref={inputRef} />
+
                 </Form.Group>
 
                 <Form.Group controlId="formStreet">

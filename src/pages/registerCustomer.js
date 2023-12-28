@@ -40,7 +40,6 @@ const RegisterCustomer = () => {
 
         if (form.checkValidity()) {
             try {
-                console.log("Me estoy ejecutando")
                 const checkResponse = await fetch(`http://127.0.0.1:9000/api/v1/customer/customerNotRegistered/${formData.numTelefono}`, {
                     method: 'GET',
                     headers: {

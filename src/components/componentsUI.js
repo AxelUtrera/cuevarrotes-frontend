@@ -10,9 +10,9 @@ const AcceptButton = ({ buttonText, onClickMethod }) => {
   );
 };
 
-const CancelButton = ({ buttonText, onClickMethod }) => {
+const SecondaryButton = ({ buttonText, onClickMethod }) => {
   return (
-    <Button variant="primary" onClick={onClickMethod} className='cancel-button'>
+    <Button variant="primary" onClick={onClickMethod} className='secondary-button'>
       {buttonText}
     </Button>
   );
@@ -26,15 +26,6 @@ const ExceptionMessage = ({ message }) => {
     </div>
   );
 };
-
-const SecondaryButton = ({ buttonText, onClickMethod }) => {
-  return (
-    <Button variant="secondary" onClick={onClickMethod} className='secondary-button'>
-      {buttonText}
-    </Button>
-  );
-};
-
 
 
 export { AcceptButton, CancelButton, ExceptionMessage, SecondaryButton };
