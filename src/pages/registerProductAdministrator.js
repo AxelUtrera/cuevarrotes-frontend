@@ -13,7 +13,8 @@ const RegisterProduct = () => {
         categoria: '',
         fechaCaducidad: '',
         precioUnitario: '',
-        descripcion: ''
+        descripcion: '',
+        imagen: ''
     });
 
 
@@ -80,7 +81,8 @@ const RegisterProduct = () => {
             formData.codigoBarras.trim() === '' ||
             formData.categoria.trim() === '' ||
             formData.fechaCaducidad.trim() === '' ||
-            formData.descripcion.trim() === ''
+            formData.descripcion.trim() === '' ||
+            formData.imagen.trim() === ''
         ) {
             setValidated(true);
             return;
@@ -149,16 +151,18 @@ const RegisterProduct = () => {
                                 <option > Seleccione una categoria</option>
                                 <option value="Alimentos">Alimentos</option>
                                 <option value="Bebidas">Bebidas</option>
-                                <option value="Productos de limpieza">Productos de limpieza</option>
-                                <option value="Higiene personal">Higiene personal</option>
-                                <option value="Cuidado del hogar">Cuidado del hogar</option>
-                                <option value="Farmacia">Farmacia</option>
+                                <option value="Abarrotes">Abarrotes</option>
                             </Form.Select>
                         </Form.Group>
 
                         <Form.Group controlId="formExpireDate">
                             <Form.Label className="text">Fecha de caducidad</Form.Label>
                             <Form.Control required type="date" name='fechaCaducidad' value={formData.fechaCaducidad} onChange={handleChange} />
+                        </Form.Group>
+
+                        <Form.Group controlId="formImage">
+                            <Form.Label className="text">Link de imagen</Form.Label>
+                            <Form.Control required type="text" name='imagen' value={formData.imagen} onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group controlId="formDescription">

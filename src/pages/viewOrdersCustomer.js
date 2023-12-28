@@ -4,7 +4,7 @@ import { SecondaryButton } from "../components/componentsUI";
 import { formatDate } from "../Logic/utilities";
 import '../components/componentsUI.css'
 
-const phoneNumber = '0'
+const phoneNumber = '9848073096'
 
 const OrderHistory = () => {
     const [ordersData, setOrdersData] = useState([]);

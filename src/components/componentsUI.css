@@ -83,11 +83,25 @@
     font-weight: bolder;
     color: #ff6600;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
+}
+
+.price {
+    font-weight: bolder;
+    font-size: large;
+    color: #339900;
+    text-align: center;
+    margin-top: 5px;
 }
 
 .text {
     color: #ff6600;
+    font-weight: normal;
+    margin: 10px;
+    min-width: fit-content;
+}
+
+.text-black {
     font-weight: normal;
     margin: 10px;
     min-width: fit-content;
@@ -103,7 +117,7 @@
 
 .order-card{
     border: 2px solid #ff6600;
-    margin-top: 20px;
+    border-radius: 25px;
 }
 
 
