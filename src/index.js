@@ -10,7 +10,6 @@ import {ViewOrderDeliveryMan} from './pages/ordersDeliveryMan'
 import OrderDetails from './pages/ordersDetails';
 
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

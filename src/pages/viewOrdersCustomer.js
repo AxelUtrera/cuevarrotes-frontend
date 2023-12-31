@@ -2,31 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Container, Card, CardBody, Row, Col, Button, Collapse, Image } from 'react-bootstrap';
 import { formatDate } from '../Logic/utilities';
 import '../components/styles/viewOrdersCustomer.css';
-import { getPhoneNumber } from '../Logic/customerPetitions';
+import { getPhoneNumber, cancelOrder, getProductDetails } from '../Logic/customerPetitions';
 
 const OrderHistory = () => {
     const [ordersData, setOrdersData] = useState([]);
     const [expandedOrder, setExpandedOrder] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState('');
-
-    const getProductDetails = async (codigoBarras) => {
-        const url = `http://localhost:6969/api/v1/customer/products/${codigoBarras}`;
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const productData = await response.json();
-            return {
-                name: productData.nombre,
-                image: productData.imagen || 'URL_de_imagen_por_defecto', 
-                price: productData.precioUnitario
-            };
-        } catch (error) {
-            console.error('Could not fetch the product:', error);
-            return {}; 
-        }
-    };
 
     const getOrdersWithProductDetails = async (orders) => {
         const ordersWithDetails = await Promise.all(orders.map(async (order) => {
@@ -51,7 +32,7 @@ const OrderHistory = () => {
     }, []);
 
     useEffect(() => {
-        const getOrdersInfo = async (phoneNumber) => {
+        const getOrdersInfoFetch = async (phoneNumber) => {
             try {
                 const response = await fetch(`http://localhost:6969/api/v1/customer/getOrders/${phoneNumber}`, {
                     method: 'GET',
@@ -74,13 +55,35 @@ const OrderHistory = () => {
             }
         };
 
-        getOrdersInfo(phoneNumber);
+        getOrdersInfoFetch(phoneNumber);
     }, [phoneNumber]);
 
     const handleToggleOrderDetails = (numPedido) => {
         setExpandedOrder(expandedOrder === numPedido ? null : numPedido);
     };
 
+    const handleCancelOrder = (numPedido) => {
+
+        const userConfirmed = window.confirm("¿Estás seguro de que quieres cancelar este pedido?");
+
+        
+        if (userConfirmed) {
+            
+            cancelOrder(numPedido)
+                .then(response => {
+                    setOrdersData(ordersData.map(order => {
+                        if (order.numPedido === numPedido) {
+                            return { ...order, estado: 'Cancelado' };
+                        }
+                        return order; 
+                    }));
+                })
+                .catch(error => {
+                    
+                    console.error('Error al cancelar el pedido:', error);
+                });
+        }
+    };
 
     const handleGoBack = () => {
         // Implementar la lógica para regresar
@@ -99,9 +102,20 @@ const OrderHistory = () => {
                                 <p className="text m-0"><b>Estado:</b> {order.estado}</p>
                             </Col>
                             <Col xs={12} md={4} className="text-center mt-3 mt-md-0">
-                                <Button variant="success" className="btn-custom w-75" onClick={() => handleToggleOrderDetails(order.numPedido)}>
-                                    {expandedOrder === order.numPedido ? 'Colapsar' : 'Ver pedido'}
-                                </Button>
+                                <div className="button-container">
+                                    <Button variant="success" className="btn-custom w-75" onClick={() => handleToggleOrderDetails(order.numPedido)}>
+                                        {expandedOrder === order.numPedido ? 'Colapsar' : 'Ver pedido'}
+                                    </Button>
+                                    {order.estado === "Preparandose" && (
+                                        <Button
+                                            variant="danger"
+                                            className="btn-custom w-75"
+                                            onClick={() => handleCancelOrder(order.numPedido)}
+                                        >
+                                            <strong>Cancelar pedido</strong>
+                                        </Button>
+                                    )}
+                                </div>
                             </Col>
                         </Row>
                         <Collapse in={expandedOrder === order.numPedido}>

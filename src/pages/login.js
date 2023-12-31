@@ -51,12 +51,11 @@ export default function LoginScreen() {
 
         // Extrae el número de teléfono del token
         const userPhone = await getPhoneNumber();
-        console.log(userPhone)
+
+        const token = localStorage.getItem('token');
 
         navigate(`/homePage/${userPhone}`)
       }
-
-      // Maneja la respuesta exitosa, como redirigir, etc.
 
     } catch (error) {
       setError(true);
@@ -65,11 +64,12 @@ export default function LoginScreen() {
   };
 
   const decodeToken = (token) => {
-    const tokenPayload = JSON.parse(atob(token.split('.')[1])); // Decodifica el payload del token
+    const tokenPayload = JSON.parse(atob(token.split('.')[1]));
     return { numTelefono: tokenPayload.numTelefono };
   };
 
   return (
+    <div className="login-screen-container">
     <Container className="login-container">
       <BackButton href="/donde-sea" />
       <Form className="login-form" onSubmit={handleLogin}>
@@ -92,5 +92,6 @@ export default function LoginScreen() {
         {error && <div className="error-message">{errorMessage}</div>}
       </Form>
     </Container>
+    </div>
   );
 }
