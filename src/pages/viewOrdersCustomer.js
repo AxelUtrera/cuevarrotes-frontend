@@ -2,56 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Container, Card, CardBody, Row, Col, Button, Collapse, Image } from 'react-bootstrap';
 import { formatDate } from '../Logic/utilities';
 import '../components/styles/viewOrdersCustomer.css';
-import { getPhoneNumber } from '../Logic/customerPetitions';
+import { getPhoneNumber, cancelOrder, getProductDetails } from '../Logic/customerPetitions';
 
 const OrderHistory = () => {
     const [ordersData, setOrdersData] = useState([]);
     const [expandedOrder, setExpandedOrder] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState('');
-
-    const cancelOrder = async (orderId) => {
-        try {
-            const url = `http://localhost:6969/api/v1/customer/cancelOrder/${orderId}`;
-            const response = await fetch(url, {
-                method: 'PATCH', 
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({})
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json(); 
-            console.log('Orden cancelada con éxito:', data);
-            return data; 
-        } catch (error) {
-            console.error('Error al cancelar la orden:', error);
-            throw error; 
-        }
-    };
-
-
-    const getProductDetails = async (codigoBarras) => {
-        const url = `http://localhost:6969/api/v1/customer/products/${codigoBarras}`;
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const productData = await response.json();
-            return {
-                name: productData.nombre,
-                image: productData.imagen || 'URL_de_imagen_por_defecto',
-                price: productData.precioUnitario
-            };
-        } catch (error) {
-            console.error('Could not fetch the product:', error);
-            return {};
-        }
-    };
 
     const getOrdersWithProductDetails = async (orders) => {
         const ordersWithDetails = await Promise.all(orders.map(async (order) => {
@@ -76,7 +32,7 @@ const OrderHistory = () => {
     }, []);
 
     useEffect(() => {
-        const getOrdersInfo = async (phoneNumber) => {
+        const getOrdersInfoFetch = async (phoneNumber) => {
             try {
                 const response = await fetch(`http://localhost:6969/api/v1/customer/getOrders/${phoneNumber}`, {
                     method: 'GET',
@@ -99,7 +55,7 @@ const OrderHistory = () => {
             }
         };
 
-        getOrdersInfo(phoneNumber);
+        getOrdersInfoFetch(phoneNumber);
     }, [phoneNumber]);
 
     const handleToggleOrderDetails = (numPedido) => {
