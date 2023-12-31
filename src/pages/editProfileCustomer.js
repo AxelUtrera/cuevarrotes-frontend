@@ -3,6 +3,7 @@ import { AcceptButton, ExceptionMessage } from "../components/componentsUI";
 import { Container, Form, Row, Col } from "react-bootstrap";
 import { formatDate } from '../Logic/utilities';
 import '../components/componentsUI.css'
+import { useParams } from 'react-router-dom';
 
 
 const EditProfileCustomer = () => {
@@ -14,6 +15,7 @@ const EditProfileCustomer = () => {
         fechaNacimiento: '',
         numTelefono: ''
     });
+    const { phoneNumber } = useParams()
 
 
     useEffect(() => {
@@ -21,9 +23,9 @@ const EditProfileCustomer = () => {
     }, []);
 
 
-    const getCustomerInfo = async (phoneNumber) => {
+    const getCustomerInfo = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:9000/api/v1/customer/getCustomerByPhone/9848073096`, {
+            const response = await fetch(`http://127.0.0.1:9000/api/v1/customer/getCustomerByPhone/${phoneNumber}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

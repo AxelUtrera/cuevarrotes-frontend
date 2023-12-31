@@ -120,6 +120,24 @@
     border-radius: 25px;
 }
 
+.order-card-text{
+    color: #ff6600;
+    text-align: center;
+    padding: 10px;
+}
+
+.button-card {
+    background-color: #339900;
+    color: white;
+    width: 25%;
+    border-radius: 20px;
+    border-color: #339900;
+    padding: 0%;
+    margin: 0 0 0 0;
+    text-align: center;
+}
+
+
 
 @media only screen and (max-width: 600px) {
     .center-container {

@@ -153,7 +153,7 @@ const ViewProducts = () => {
         if (showSuccessMessage) {
             timer = setTimeout(() => {
                 setShowSuccessMessage(false);
-            }, 3000); // Cambia este valor al tiempo que desees mostrar el mensaje
+            }, 3000);
         }
         return () => {
             clearTimeout(timer);
@@ -162,7 +162,6 @@ const ViewProducts = () => {
 
 
     useEffect(() => {
-        // Filtrar los productos según la categoría seleccionada
         const filteredProducts = selectedCategory === 'Todo'
             ? originalProducts
             : originalProducts.filter(product => product.categoria === selectedCategory);
@@ -227,10 +226,10 @@ const ViewProducts = () => {
                                     <Card className='order-card'>
                                         <Card.Body>
                                             <Card.Img className='order-card' variant="top" height="100" src={product.imagen} />
-                                            <Card.Title className='title'>{product.nombre}</Card.Title>
+                                            <Card.Title className='order-card-text'>{product.nombre}</Card.Title>
                                             <Container className='d-flex justify-content-evenly'>
                                                 <p className='price w-50'>${product.precioUnitario}</p>
-                                                <Button variant="warning" type="submit" className="secondary-button w-25" onClick={() => addProductToCart(product.codigoBarras)}>+</Button>
+                                                <Button className='button-card' size='sm' onClick={() => addProductToCart(product.codigoBarras)}>+</Button>
                                             </Container>
                                         </Card.Body>
                                     </Card>

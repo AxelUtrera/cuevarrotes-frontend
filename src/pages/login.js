@@ -9,6 +9,7 @@ import '../components/styles/Login.css';
 import login from '../Logic/authService';
 import { encriptPassword } from '../Logic/utilities';
 import { useNavigate } from 'react-router-dom';
+import { getPhoneNumber } from '../Logic/customerPetitions';
 
 export default function LoginScreen() {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -49,9 +50,10 @@ export default function LoginScreen() {
         localStorage.setItem('token', data.token);
 
         // Extrae el número de teléfono del token
-        const token = localStorage.getItem('token');
+        const userPhone = await getPhoneNumber();
+        console.log(userPhone)
 
-        navigate(`/pedidos`);
+        navigate(`/homePage/${userPhone}`)
       }
 
       // Maneja la respuesta exitosa, como redirigir, etc.

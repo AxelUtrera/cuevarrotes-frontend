@@ -30,7 +30,7 @@ async function getPhoneNumber() {
             throw new Error("No se encontró el token en el localStorage.");
         }
 
-        const response = await fetch('http://localhost:6969/api/v1/customer/user/phone', {
+        const response = await fetch('http://localhost:9000/api/v1/customer/user/phone', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
