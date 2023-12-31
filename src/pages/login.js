@@ -48,13 +48,10 @@ export default function LoginScreen() {
       if (data.token) {
         localStorage.setItem('token', data.token);
 
-        // Extrae el número de teléfono del token
         const token = localStorage.getItem('token');
 
         navigate(`/pedidos`);
       }
-
-      // Maneja la respuesta exitosa, como redirigir, etc.
 
     } catch (error) {
       setError(true);
@@ -63,11 +60,12 @@ export default function LoginScreen() {
   };
 
   const decodeToken = (token) => {
-    const tokenPayload = JSON.parse(atob(token.split('.')[1])); // Decodifica el payload del token
+    const tokenPayload = JSON.parse(atob(token.split('.')[1]));
     return { numTelefono: tokenPayload.numTelefono };
   };
 
   return (
+    <div className="login-screen-container">
     <Container className="login-container">
       <BackButton href="/donde-sea" />
       <Form className="login-form" onSubmit={handleLogin}>
@@ -90,5 +88,6 @@ export default function LoginScreen() {
         {error && <div className="error-message">{errorMessage}</div>}
       </Form>
     </Container>
+    </div>
   );
 }

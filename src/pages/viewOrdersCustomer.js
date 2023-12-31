@@ -9,6 +9,31 @@ const OrderHistory = () => {
     const [expandedOrder, setExpandedOrder] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState('');
 
+    const cancelOrder = async (orderId) => {
+        try {
+            const url = `http://localhost:6969/api/v1/customer/cancelOrder/${orderId}`;
+            const response = await fetch(url, {
+                method: 'PATCH', 
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({})
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json(); 
+            console.log('Orden cancelada con éxito:', data);
+            return data; 
+        } catch (error) {
+            console.error('Error al cancelar la orden:', error);
+            throw error; 
+        }
+    };
+
+
     const getProductDetails = async (codigoBarras) => {
         const url = `http://localhost:6969/api/v1/customer/products/${codigoBarras}`;
         try {
@@ -19,12 +44,12 @@ const OrderHistory = () => {
             const productData = await response.json();
             return {
                 name: productData.nombre,
-                image: productData.imagen || 'URL_de_imagen_por_defecto', 
+                image: productData.imagen || 'URL_de_imagen_por_defecto',
                 price: productData.precioUnitario
             };
         } catch (error) {
             console.error('Could not fetch the product:', error);
-            return {}; 
+            return {};
         }
     };
 
@@ -81,6 +106,28 @@ const OrderHistory = () => {
         setExpandedOrder(expandedOrder === numPedido ? null : numPedido);
     };
 
+    const handleCancelOrder = (numPedido) => {
+
+        const userConfirmed = window.confirm("¿Estás seguro de que quieres cancelar este pedido?");
+
+        
+        if (userConfirmed) {
+            
+            cancelOrder(numPedido)
+                .then(response => {
+                    setOrdersData(ordersData.map(order => {
+                        if (order.numPedido === numPedido) {
+                            return { ...order, estado: 'Cancelado' };
+                        }
+                        return order; 
+                    }));
+                })
+                .catch(error => {
+                    
+                    console.error('Error al cancelar el pedido:', error);
+                });
+        }
+    };
 
     const handleGoBack = () => {
         // Implementar la lógica para regresar
@@ -99,9 +146,20 @@ const OrderHistory = () => {
                                 <p className="text m-0"><b>Estado:</b> {order.estado}</p>
                             </Col>
                             <Col xs={12} md={4} className="text-center mt-3 mt-md-0">
-                                <Button variant="success" className="btn-custom w-75" onClick={() => handleToggleOrderDetails(order.numPedido)}>
-                                    {expandedOrder === order.numPedido ? 'Colapsar' : 'Ver pedido'}
-                                </Button>
+                                <div className="button-container">
+                                    <Button variant="success" className="btn-custom w-75" onClick={() => handleToggleOrderDetails(order.numPedido)}>
+                                        {expandedOrder === order.numPedido ? 'Colapsar' : 'Ver pedido'}
+                                    </Button>
+                                    {order.estado === "Preparandose" && (
+                                        <Button
+                                            variant="danger"
+                                            className="btn-custom w-75"
+                                            onClick={() => handleCancelOrder(order.numPedido)}
+                                        >
+                                            <strong>Cancelar pedido</strong>
+                                        </Button>
+                                    )}
+                                </div>
                             </Col>
                         </Row>
                         <Collapse in={expandedOrder === order.numPedido}>
