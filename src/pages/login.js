@@ -48,24 +48,44 @@ export default function LoginScreen() {
 
       if (data.token) {
         localStorage.setItem('token', data.token);
-
-        // Extrae el número de teléfono del token
-        const userPhone = await getPhoneNumber();
-
         const token = localStorage.getItem('token');
+    
+        try {
+            const response = await fetch('http://localhost:6969/api/v1/auth/role', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            const roleData = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(roleData.message || 'No se pudo obtener el rol del usuario.');
+            }
+    
+            const userRole = roleData.role; 
 
-        navigate(`/homePage/${userPhone}`)
-      }
+            if(userRole === 'customer'){
+              navigate(`/homePage/${phoneNumber}`)
+            }else if (userRole === 'Administrador') {
+                navigate('/ruta-administrador');
+            } else if (userRole === 'Repartidor') {
+                navigate('/ruta-repartidor');
+            } else if (userRole === 'Ejecutivo de ventas') {
+                navigate('/ruta-ejecutivo-ventas');
+            } else {
+                console.error('El rol del usuario no es reconocido:', userRole);
+            }
+        } catch (error) {
+            console.error('Hubo un error al obtener el rol del usuario:', error);
+            localStorage.removeItem('token');
+            navigate('/login');
+        }
+    }
 
     } catch (error) {
       setError(true);
       setErrorMessage("Conexion no disponible, intente mas tarde");
     }
-  };
-
-  const decodeToken = (token) => {
-    const tokenPayload = JSON.parse(atob(token.split('.')[1]));
-    return { numTelefono: tokenPayload.numTelefono };
   };
 
   return (

@@ -1,5 +1,5 @@
 const createCustomer = async (data) => {
-    const registerResponse = await fetch('http://127.0.0.1:9000/api/v1/customer/registerCustomer', {
+    const registerResponse = await fetch('http://127.0.0.1:6969/api/v1/customer/registerCustomer', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -12,7 +12,7 @@ const createCustomer = async (data) => {
 
 
 const isCustomerRegistered = async (numberPhone) => {
-    const customerResponse = await fetch(`http://127.0.0.1:9000/api/v1/customer/customerNotRegistered/${numberPhone}`, {
+    const customerResponse = await fetch(`http://127.0.0.1:6969/api/v1/customer/customerNotRegistered/${numberPhone}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ async function getPhoneNumber() {
             throw new Error("No se encontró el token en el localStorage.");
         }
 
-        const response = await fetch('http://localhost:9000/api/v1/customer/user/phone', {
+        const response = await fetch('http://localhost:6969/api/v1/customer/user/phone', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
