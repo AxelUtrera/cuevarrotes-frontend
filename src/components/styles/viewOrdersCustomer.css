@@ -216,6 +216,61 @@
 
 }
 
+.report-order-button {
+    background-color: #ff6600;
+    color: white; 
+    font-weight: bold; 
+  }
+
+  .report-order-button:hover {
+    background-color: #bb4902; /* Naranja más oscuro para el hover */
+    cursor: pointer; /* Cambia el cursor a una mano para indicar que es clickeable */
+  }
+  
+  .modal-header, .modal-footer {
+    border-color: #ff6600; /* Cambia los colores según tu prototipo */
+}
+
+.modal-title {
+    color: #ff6600; /* Color del texto del título */
+}
+
+.form-control {
+    border-color: #ff6600; /* Color de borde del textarea */
+}
+
+.btn-success {
+    background-color: #28a745; /* Color de fondo para el botón de subir */
+    border-color: #28a745; /* Color de borde para el botón de subir */
+}
+
+.btn-success:hover {
+    background-color: #218838; /* Color de fondo para el botón de subir al hacer hover */
+    border-color: #1e7e34; /* Color de borde para el botón de subir al hacer hover */
+}
+
+.btn-primary {
+    background-color: #ff6600; /* Color de fondo para el botón enviar */
+    border-color: #ff6600; /* Color de borde para el botón enviar */
+}
+
+.btn-primary:hover {
+    background-color: #e65a00; /* Color de fondo para el botón enviar al hacer hover */
+    border-color: #d15400; /* Color de borde para el botón enviar al hacer hover */
+}
+
+/* Ajustes adicionales para el modal */
+.modal-content {
+    border-radius: 20px; /* Bordes redondeados como en el prototipo */
+}
+
+/* Ajustes para los inputs y botones dentro del modal */
+input[type="file"]::file-selector-button {
+    border-color: #ff6600;
+    color: #fff;
+    background-color: #ff6600;
+}
+
 
 @media (max-width: 768px) {
     .cancel-order-button {
