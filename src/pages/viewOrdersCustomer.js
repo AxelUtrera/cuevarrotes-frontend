@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Card, CardBody, Row, Col, Button, Collapse, Image } from 'react-bootstrap';
+import { Container, Card, CardBody, Row, Col, Button, Collapse, Image, Modal } from 'react-bootstrap';
 import { formatDate } from '../Logic/utilities';
 import '../components/styles/viewOrdersCustomer.css';
 import { getPhoneNumber, cancelOrder, getProductDetails } from '../Logic/customerPetitions';
@@ -8,6 +8,98 @@ const OrderHistory = () => {
     const [ordersData, setOrdersData] = useState([]);
     const [expandedOrder, setExpandedOrder] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState('');
+    const [fileUploadError, setFileUploadError] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [selectedOrderNum, setSelectedOrderNum] = useState(null);
+    const [description, setDescription] = useState('');
+    const [file, setFile] = useState(null);
+    const [fileUploadSuccess, setFileUploadSuccess] = useState(false);
+    const [validationError, setValidationError] = useState(false);
+
+    function fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+            reader.readAsDataURL(file);
+        });
+    }
+
+    const handleReportOrder = async () => {
+        if (description.trim() && file) {
+            try {
+                const base64Image = await fileToBase64(file);
+
+                const reportData = {
+                    descripcion: description,
+                    fotografia: base64Image
+                };
+
+                const response = await fetch(`http://localhost:6969/api/v1/customer/report-incident/${selectedOrderNum}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(reportData)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    const updatedOrders = ordersData.map(order => {
+                        if (order.numPedido === selectedOrderNum) {
+                            return result.order; 
+                        }
+                        return order;
+                    });
+                    setOrdersData(ordersData.map(order => {
+                        if (order.numPedido === selectedOrderNum) {
+                            return {
+                                ...order,
+                                incidente: result.order.incidente,
+                                fechaPedido: formatDate(new Date(order.fechaPedido)),
+                            };
+                        }
+                        return order;
+                    }));
+                    handleCloseModal(); 
+                } else {
+                    throw new Error('La respuesta del servidor no fue OK.');
+                }
+            } catch (error) {
+            }
+        } else {
+            setValidationError(true); 
+        }
+    };
+
+    const handleDescriptionChange = (event) => {
+        setDescription(event.target.value);
+    };
+
+    const handleFileChange = (event) => {
+        const selectedFile = event.target.files[0];
+        if (selectedFile) {
+            setFile(selectedFile);
+            setFileUploadSuccess(true);
+            setValidationError(false);
+        } else {
+            setFileUploadSuccess(false);
+            setFile(null);
+        }
+    };
+
+    const handleShowModal = (numPedido) => {
+        setSelectedOrderNum(numPedido);
+        setShowModal(true);
+        setFile(null);
+        setDescription('');
+        setFileUploadSuccess(false);
+        setValidationError(false);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
 
     const getOrdersWithProductDetails = async (orders) => {
         const ordersWithDetails = await Promise.all(orders.map(async (order) => {
@@ -66,20 +158,20 @@ const OrderHistory = () => {
 
         const userConfirmed = window.confirm("¿Estás seguro de que quieres cancelar este pedido?");
 
-        
+
         if (userConfirmed) {
-            
+
             cancelOrder(numPedido)
                 .then(response => {
                     setOrdersData(ordersData.map(order => {
                         if (order.numPedido === numPedido) {
                             return { ...order, estado: 'Cancelado' };
                         }
-                        return order; 
+                        return order;
                     }));
                 })
                 .catch(error => {
-                    
+
                     console.error('Error al cancelar el pedido:', error);
                 });
         }
@@ -113,6 +205,15 @@ const OrderHistory = () => {
                                             onClick={() => handleCancelOrder(order.numPedido)}
                                         >
                                             <strong>Cancelar pedido</strong>
+                                        </Button>
+                                    )}
+                                    {order.estado === "Entregado" && (!order.incidente || !order.incidente.IdIncidente) && (
+                                        <Button
+                                            variant="warning"
+                                            className="btn-custom report-order-button"
+                                            onClick={() => handleShowModal(order.numPedido)}
+                                        >
+                                            Reportar pedido
                                         </Button>
                                     )}
                                 </div>
@@ -163,6 +264,43 @@ const OrderHistory = () => {
                     </CardBody>
                 </Card>
             ))}
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>REPORTAR PEDIDO</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form>
+                        <label htmlFor="problem-description">Describe el problema que presenta tu pedido:</label>
+                        <textarea
+                            className="form-control"
+                            id="problem-description"
+                            rows="3"
+                            value={description}
+                            onChange={handleDescriptionChange}
+                        ></textarea>
+
+                        <label htmlFor="evidence-upload" className="btn btn-success btn-block mt-3">
+                            Subir la evidencia
+                            <input
+                                type="file"
+                                id="evidence-upload"
+                                accept=".png,.jpg,.jpeg"
+                                style={{ display: 'none' }}
+                                onChange={handleFileChange}
+                            />
+                        </label>
+                        {fileUploadSuccess && <p style={{ color: 'green' }}>Foto cargada de manera exitosa</p>}
+                        {!file && <p style={{ color: '#ff6600' }}>Seleccione la foto de su prueba, por favor</p>}
+                    </form>
+                    {validationError && <p style={{ color: 'red' }}>Rellene los datos faltantes, por favor.</p>}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleReportOrder}>
+                        Enviar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
         </Container>
     );
 };
