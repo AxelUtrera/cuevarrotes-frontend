@@ -1,5 +1,6 @@
 const createCustomer = async (data) => {
     const registerResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/registerCustomer`, {
+
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

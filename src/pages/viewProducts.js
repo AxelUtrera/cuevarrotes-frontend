@@ -25,6 +25,7 @@ const ViewProducts = () => {
     const getBranchesInfo = async () => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/administrator/getBranchesInfo`, {
+
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -46,6 +47,7 @@ const ViewProducts = () => {
     const getProductsInfo = async (inventory) => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/getProductsByBranch`, {
+
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
