@@ -116,7 +116,7 @@ const AddAddressCustomer = () => {
 
         if (form.checkValidity()) {
             try {
-                const registerResponse = await fetch(`http://127.0.0.1:9000/api/v1/customer/addNewAddress/${customerPhoneNumber}`, {
+                const registerResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/addNewAddress/${customerPhoneNumber}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',

@@ -40,7 +40,7 @@ const RegisterCustomer = () => {
 
         if (form.checkValidity()) {
             try {
-                const checkResponse = await fetch(`http://127.0.0.1:9000/api/v1/customer/customerNotRegistered/${formData.numTelefono}`, {
+                const checkResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/customerNotRegistered/${formData.numTelefono}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ const RegisterCustomer = () => {
 
                     const hashedPassword = await encriptPassword(formDataWithoutConfirmation.contrasenia);
 
-                    const registerResponse = await fetch('http://127.0.0.1:9000/api/v1/customer/registerCustomer', {
+                    const registerResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/registerCustomer`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ const RegisterCustomer = () => {
                     </Form.Group>
 
                     <Form.Group controlId="formLastName" as={Col} md="6">
-                        <Form.Label className="text">¿Cuáles son tus apellidos?</Form.Label>
+                        <Form.Label className="text">¿Cuál es tu apellido?</Form.Label>
                         <Form.Control required type="text" name='apellidos' value={formData.apellidos} onChange={handleChange} />
                     </Form.Group>
                 </Row>

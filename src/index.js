@@ -8,6 +8,8 @@ import Login from './pages/login';
 import ViewProducts from './pages/viewProducts';
 import {ViewOrderDeliveryMan} from './pages/ordersDeliveryMan'
 import OrderDetails from './pages/ordersDetails';
+import { OrderGestion } from './pages/orderGestion';
+import { RegisterCustomer } from './pages/registerCustomer'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -15,7 +17,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<RegisterCustomer />} />
         <Route path="/homePage/:phoneNumber" element={<ViewProducts />} />
         <Route path="/orderDetails/:orderNumber" element={<OrderDetails />} />
         {/* Puedes agregar más rutas aquí */}

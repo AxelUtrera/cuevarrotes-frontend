@@ -1,6 +1,6 @@
 const createBranch = async (branchData) => {
     const token = localStorage.getItem('token');
-    const url = 'http://localhost:9000/api/v1/administrator/createBranch';
+    const url = `${process.env.REACT_APP_API_URL}/api/v1/administrator/createBranch`;
   
     const requestBody = {
       ...branchData

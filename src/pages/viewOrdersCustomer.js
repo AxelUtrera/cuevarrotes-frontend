@@ -34,7 +34,7 @@ const OrderHistory = () => {
     useEffect(() => {
         const getOrdersInfoFetch = async (phoneNumber) => {
             try {
-                const response = await fetch(`http://localhost:6969/api/v1/customer/getOrders/${phoneNumber}`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/getOrders/${phoneNumber}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

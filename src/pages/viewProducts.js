@@ -24,7 +24,7 @@ const ViewProducts = () => {
 
     const getBranchesInfo = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:9000/api/v1/administrator/getBranchesInfo', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/administrator/getBranchesInfo`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ const ViewProducts = () => {
 
     const getProductsInfo = async (inventory) => {
         try {
-            const response = await fetch('http://127.0.0.1:9000/api/v1/customer/getProductsByBranch', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/getProductsByBranch`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ const ViewProducts = () => {
         console.log(barCode)
         console.log(phoneNumber)
         try {
-            const response = await fetch(`http://127.0.0.1:9000/api/v1/customer/addProductToCart/${phoneNumber}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/addProductToCart/${phoneNumber}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

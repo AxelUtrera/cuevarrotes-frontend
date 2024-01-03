@@ -16,7 +16,7 @@ const ViewOrderDeliveryMan = () => {
 
     const getOrdersAsigned = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:9000/api/v1/employee/getDeliveryOrders/${employeeNumber}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/employee/getDeliveryOrders/${employeeNumber}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,7 +37,6 @@ const ViewOrderDeliveryMan = () => {
     }
 
     const viewOrderDetails = (orderId) => {
-        // Guarda el orderId seleccionado y navega a la ruta de detalles del pedido
         setSelectedOrderId(orderId);
         navigate(`/orderDetails/${orderId}`);
     };

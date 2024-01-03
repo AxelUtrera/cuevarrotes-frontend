@@ -25,7 +25,7 @@ const RegisterProduct = () => {
 
     const getBranchesInfo = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:9000/api/v1/administrator/getBranchesInfo', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/administrator/getBranchesInfo`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ const RegisterProduct = () => {
         if (form.checkValidity()) {
 
             try {
-                const registerResponse = await fetch('http://127.0.0.1:9000/api/v1/administrator/createProduct', {
+                const registerResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/administrator/createProduct`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ const RegisterProduct = () => {
 
                 if (registerResponse.ok) {
 
-                    await fetch('http://127.0.0.1:9000/api/v1/administrator/addProductToBranch', {
+                    await fetch(`${process.env.REACT_APP_API_URL}/api/v1/administrator/addProductToBranch`, {
                         method: 'PATCH',
                         headers: {
                             'Content-Type': 'application/json',

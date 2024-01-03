@@ -25,7 +25,7 @@ const EditProfileCustomer = () => {
 
     const getCustomerInfo = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:9000/api/v1/customer/getCustomerByPhone/${phoneNumber}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/getCustomerByPhone/${phoneNumber}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const EditProfileCustomer = () => {
         if (form.checkValidity()) {
             try {
 
-                const editResponse = await fetch(`http://127.0.0.1:9000/api/v1/customer/modifyProfile/${formData.numTelefono}`, {
+                const editResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/modifyProfile/${formData.numTelefono}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',

@@ -6,7 +6,7 @@ const login = async (phoneNumber, password) => {
     };
   
     try {
-      const response = await fetch('http://localhost:9000/api/v1/auth/login', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

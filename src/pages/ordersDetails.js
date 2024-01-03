@@ -44,7 +44,7 @@ const OrderDetails = () => {
 
     const getOrdersDetails = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:9000/api/v1/employee/getOrderDetails/${orderNumber}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/employee/getOrderDetails/${orderNumber}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ const OrderDetails = () => {
 
     const deliverOrder = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:9000/api/v1/employee/deliverOrder/${orderNumber}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/employee/deliverOrder/${orderNumber}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -140,7 +140,7 @@ const OrderDetails = () => {
         }
 
         try {
-            const response = await fetch(`http://127.0.0.1:9000/api/v1/employee/deliverOrderWithProblems/${orderNumber}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/employee/deliverOrderWithProblems/${orderNumber}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -221,7 +221,7 @@ const OrderDetails = () => {
                             ))}
 
 
-                            {orderDetails.estado === 'En proceso de entrega' && (
+                            {orderDetails.estado === 'En proceso' && (
                                 <>
                                     <Button className="secondary-button" onClick={clicShowModal}>Entregar sin finalizar</Button>
                                     <Button className="secondary-button" onClick={deliverOrder}>Entregar pedido</Button>

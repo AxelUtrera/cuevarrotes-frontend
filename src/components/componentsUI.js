@@ -28,4 +28,4 @@ const ExceptionMessage = ({ message }) => {
 };
 
 
-export { AcceptButton, CancelButton, ExceptionMessage, SecondaryButton };
+export { AcceptButton, ExceptionMessage, SecondaryButton };
