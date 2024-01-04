@@ -51,7 +51,7 @@ export default function LoginScreen() {
         const token = localStorage.getItem('token');
     
         try {
-            const response = await fetch('http://localhost:6969/api/v1/auth/role', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/auth/role`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -67,11 +67,11 @@ export default function LoginScreen() {
             if(userRole === 'customer'){
               navigate(`/homePage/${phoneNumber}`)
             }else if (userRole === 'Administrador') {
-                navigate('/ruta-administrador');
+                navigate('/administratorMenu');
             } else if (userRole === 'Repartidor') {
-                navigate('/ruta-repartidor');
+                navigate(`/asignedOrders/${phoneNumber}`);
             } else if (userRole === 'Ejecutivo de ventas') {
-                navigate('/ruta-ejecutivo-ventas');
+                navigate('/orderGestion');
             } else {
                 console.error('El rol del usuario no es reconocido:', userRole);
             }

@@ -2,8 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { AcceptButton, ExceptionMessage } from "../components/componentsUI";
 import { Container, Form, Row, Col } from "react-bootstrap";
 import '../components/componentsUI.css'
-
-const customerPhoneNumber = ''
+import { useParams, useNavigate } from 'react-router-dom';
 
 const AddAddressCustomer = () => {
     const [registrationStatus, setRegistrationStatus] = useState(null);
@@ -22,7 +21,8 @@ const AddAddressCustomer = () => {
             lng: ''
         }
     });
-
+    const {phoneNumber} = useParams();
+    const navigate = useNavigate();
     const autoCompleteRef = useRef();
     const inputRef = useRef();
 
@@ -89,6 +89,10 @@ const AddAddressCustomer = () => {
         }
     };
     
+
+    const navigateToHome = () =>{
+        navigate(`/homePage/${phoneNumber}`)
+    }
     
 
     const handleChange = (e) => {
@@ -116,7 +120,7 @@ const AddAddressCustomer = () => {
 
         if (form.checkValidity()) {
             try {
-                const registerResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/addNewAddress/${customerPhoneNumber}`, {
+                const registerResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/addNewAddress/${phoneNumber}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
@@ -195,6 +199,7 @@ const AddAddressCustomer = () => {
 
 
                 <AcceptButton buttonText='Guardar Dirección' onClickMethod={sendAddressInfo} />
+                <AcceptButton buttonText='Regresar' onClickMethod={navigateToHome} />
 
                 {registrationStatus === 'success' && (
                     <div className="text-success">Dirección guardada con éxito</div>

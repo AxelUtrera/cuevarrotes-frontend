@@ -38,7 +38,7 @@ const ViewOrderDeliveryMan = () => {
 
     const viewOrderDetails = (orderId) => {
         setSelectedOrderId(orderId);
-        navigate(`/orderDetails/${orderId}`);
+        navigate(`/orderDetails/${orderId}/${employeeNumber}`);
     };
 
     useEffect(() => {
@@ -56,14 +56,11 @@ const ViewOrderDeliveryMan = () => {
                     </Navbar.Brand>
                     <Navbar.Toggle />
                     <Navbar.Collapse className="justify-content-end">
-                        <a href="#" style={{ cursor: 'pointer' }}>
-                            <img src={profile} width="40" height="40" className="d-inline-block align-top" alt='Profile Pic' />
-                        </a>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
 
-            <h5 className='title'>Pedidos Asignados</h5>
+            <h5 className='title ms-4'>Pedidos Asignados</h5>
 
 
             {loading ? (

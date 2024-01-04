@@ -6,7 +6,7 @@ import '../components/componentsUI.css'
 import logo from '../components/img/logo.png'
 import cart from '../components/img/cart.png'
 import profile from '../components/img/profile.png'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 
 
@@ -21,6 +21,7 @@ const ViewProducts = () => {
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState('Todo');
     const { phoneNumber } = useParams();
+    const navigate = useNavigate()
 
     const getBranchesInfo = async () => {
         try {
@@ -73,8 +74,6 @@ const ViewProducts = () => {
             codigoBarras: barCode,
             cantidad: 1
         }
-        console.log(barCode)
-        console.log(phoneNumber)
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/addProductToCart/${phoneNumber}`, {
                 method: 'PATCH',
@@ -95,6 +94,11 @@ const ViewProducts = () => {
         } catch (error) {
             console.error('Error en la solicitud:', error);
         }
+    }
+
+
+    const navigateToProfile = () =>{
+        navigate(`/editProfile/${phoneNumber}`)
     }
 
 
@@ -186,7 +190,7 @@ const ViewProducts = () => {
                         <a href="#" style={{ cursor: 'pointer' }}>
                             <img src={cart} width="40" height="40" className="d-inline-block align-top" alt="Customer Cart" />
                         </a>
-                        <a href="#" style={{ cursor: 'pointer' }}>
+                        <a onClick={navigateToProfile} style={{ cursor: 'pointer' }}>
                             <img src={profile} width="40" height="40" className="d-inline-block align-top" alt='Profile Pic' />
                         </a>
                     </Navbar.Collapse>
@@ -205,6 +209,7 @@ const ViewProducts = () => {
                 </Container>
             ) : closestBranch ? (
                 <Container className='mt-4'>
+                    <p className='text'><b>Sucursal seleccionada: </b>{closestBranch.nombreComercial}</p>
                     {showSuccessMessage && (
                         <Container className="text-center mt-4">
                             <Alert variant="success">

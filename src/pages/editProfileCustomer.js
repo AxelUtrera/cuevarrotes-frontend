@@ -3,7 +3,7 @@ import { AcceptButton, ExceptionMessage } from "../components/componentsUI";
 import { Container, Form, Row, Col } from "react-bootstrap";
 import { formatDate } from '../Logic/utilities';
 import '../components/componentsUI.css'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 
 const EditProfileCustomer = () => {
@@ -16,7 +16,7 @@ const EditProfileCustomer = () => {
         numTelefono: ''
     });
     const { phoneNumber } = useParams()
-
+    const navigate = useNavigate()
 
     useEffect(() => {
         getCustomerInfo();
@@ -81,6 +81,8 @@ const EditProfileCustomer = () => {
 
                 if (editResponse.ok) {
                     setEditStatus('success');
+                    navigateToHome()
+
                 } else {
                     setEditStatus('error');
                 }
@@ -93,8 +95,19 @@ const EditProfileCustomer = () => {
     };
 
 
+    const navigateToHome = () =>{
+        navigate(`/homePage/${phoneNumber}`)
+    }
+
+    const navigateToAddAddress = () => {
+        navigate(`/addAddress/${phoneNumber}`)
+    }
+
+
     return (
         <Container className="center-container">
+            <a className='text' onClick={navigateToHome} style={{cursor: 'pointer'}}>Regresar</a>
+
             <h3 className="title">Este eres tú :)</h3>
 
             <Form noValidate validated={validated} onSubmit={sendCustomerData}>
@@ -118,7 +131,7 @@ const EditProfileCustomer = () => {
 
 
                 <AcceptButton buttonText='Guardar' onClickMethod={sendCustomerData} />
-
+                <AcceptButton buttonText='Agregar Dirección' onClickMethod={navigateToAddAddress} />
                 {editStatus === 'success' && (
                     <div className="text-success">Perfil Actualizado Correctamente</div>
                 )}

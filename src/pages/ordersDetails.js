@@ -28,7 +28,7 @@ const OrderDetails = () => {
         mapTypeControl: false,
         zoomControl: false
     };
-    const { orderNumber } = useParams();
+    const { orderNumber, employeeNumber } = useParams();
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
 
@@ -40,6 +40,10 @@ const OrderDetails = () => {
     const clicCloseModal = () => {
         setShowModal(false);
     };
+
+    const navigateToOrdersAsigned = () =>{
+        navigate(`/asignedOrders/${employeeNumber}`)
+    }
 
 
     const getOrdersDetails = async () => {
@@ -247,6 +251,7 @@ const OrderDetails = () => {
                             )}
                         </Col>
                     </Row>
+                    <Button className="secondary-button" onClick={navigateToOrdersAsigned}>Regresar</Button>
                 </Container>
             )}
         </>
