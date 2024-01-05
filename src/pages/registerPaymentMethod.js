@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Card, Button, Form, Alert } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import "../components/styles/payment.css";
 import { useNavigate, useParams } from 'react-router';
 
@@ -88,7 +87,6 @@ function PaymentMethodForm() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Aquí deberías agregar el token de autenticación si es necesario
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
                 },
                 body: JSON.stringify(paymentData)
@@ -97,20 +95,16 @@ function PaymentMethodForm() {
             const result = await response.json();
 
             if (response.ok) {
-                // Si la respuesta es exitosa, mostrar un popup o una alerta
                 alert('Método de pago agregado con éxito.');
                 navigateToHome()
             } else {
-                // Si hay un error en la respuesta y es específicamente el de tarjeta previamente registrada
                 if (result.message === "Tarjeta previamente registrada") {
                     setError('La tarjeta ya está registrada en su cuenta.');
                 } else {
-                    // Otros mensajes de error
                     setError(result.message || 'Ocurrió un error al intentar agregar el método de pago.');
                 }
             }
         } catch (error) {
-            // En caso de error de red u otro error al hacer la petición, mostrar un mensaje de error
             setError('Error al conectar con el servicio. Por favor, intente más tarde.');
         }
     };
@@ -176,7 +170,7 @@ function PaymentMethodForm() {
                                     value={formData.cvv}
                                     onChange={handleInputChange}
                                     placeholder="000"
-                                    maxLength="3" // Esto asegura que el input no admita más de 3 caracteres
+                                    maxLength="3" 
                                 />
                             </Form.Group>
                         </div>

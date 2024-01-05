@@ -1,0 +1,85 @@
+/* employeeRegistration.css */
+.employee-registration-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f7f7; /* Fondo ligero para la página completa */
+}
+
+.employee-registration-card {
+    width: 100%;
+    max-width: 500px; /* Ancho máximo para dispositivos grandes */
+    margin: auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Asegura que nada se desborde de los bordes redondeados */
+    background-color: #fff; /* Fondo blanco para la tarjeta */
+    border: none; /* Elimina el borde predeterminado */
+}
+
+.return-link {
+    color: #ff7c44; /* Color naranja para el enlace de retorno */
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: inline-block; /* Permite que el margen tenga efecto */
+}
+
+.form-title {
+    color: #333; /* Color oscuro para el texto */
+    text-align: center;
+    margin: 20px 0;
+}
+
+.error-message {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.mb-3 {
+    margin-bottom: 1rem !important; /* Espaciado consistente */
+}
+
+.form-title {
+    color: #ff7c44; /* Cambiado de #333 a naranja */
+    text-align: center;
+    margin: 20px 0;
+}
+
+.form-group {
+    margin-bottom: 15px; /* Espaciado entre campos del formulario */
+}
+
+/* Estilos para los inputs del formulario */
+.form-control {
+    border-radius: 20px; /* Bordes redondeados para los inputs */
+    border: 1px solid #ccc; /* Borde claro */
+    padding: 10px 15px; /* Espaciado interno */
+}
+
+/* Botón de registro */
+.submit-button {
+    width: 100%;
+    background-color: #ff7c44; /* Color naranja para el botón */
+    border-color: #ff7c44; /* Color de borde para el botón */
+    color: white;
+    padding: 10px;
+    border-radius: 20px; /* Bordes redondeados para el botón */
+    margin-top: 20px; /* Espaciado en la parte superior */
+}
+
+.submit-button:hover {
+    background-color: #e66a31; /* Color al pasar el ratón */
+    border-color: #e66a31; /* Color de borde al pasar el ratón */
+}
+
+/* Responsive design */
+@media (max-width: 576px) {
+    .employee-registration-card {
+        border-radius: 0; /* En dispositivos pequeños, sin bordes redondeados para que se vea mejor */
+    }
+}
