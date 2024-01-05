@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Button, Form, Alert } from 'react-bootstrap';
-import "../components/styles/employeeRegistration.css"; 
+import "../components/styles/employeeRegistration.css";
 import { useNavigate } from 'react-router-dom';
 
 function EmployeeRegistrationForm() {
@@ -56,35 +56,43 @@ function EmployeeRegistrationForm() {
 
         const encoder = new TextEncoder();
         const data = encoder.encode(password);
-      
+
         const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-      
+
         const hashArray = Array.from(new Uint8Array(hashBuffer));
         const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-      
+
         return hashHex;
-      }
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-    
+
         if (validateFields()) {
             try {
-                
-                formData.contrasena = await encriptPassword(formData.contrasena);
-    
-                
+
+                const dataToSend = {
+                    nombre: formData.nombre,
+                    apellido: formData.apellido,
+                    numero: formData.numero,
+                    nss: formData.nss,
+                    contrasena: formData.contrasena, 
+                    rol: formData.rol
+                };
+
+                dataToSend.contrasena = await encriptPassword(dataToSend.contrasena);
+
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/employee/addEmployee`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     },
-                    body: JSON.stringify(formData),
+                    body: JSON.stringify(dataToSend),
                 });
-    
+
                 const responseData = await response.json();
-    
+
                 if (response.ok) {
                     alert('Registro completado con éxito.');
                 } else {
@@ -95,7 +103,7 @@ function EmployeeRegistrationForm() {
             }
         }
     };
-    
+
 
     return (
         <div className="employee-registration-form-container">
@@ -188,7 +196,7 @@ function EmployeeRegistrationForm() {
                                 <option value="Ejecutivo de ventas">Ejecutivo de ventas</option>
                                 <option value="Repartidor">Repartidor</option>
                                 <option value="Administrador">Administrador</option>
-                                
+
                             </Form.Select>
                         </Form.Group>
 
