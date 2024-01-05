@@ -8,6 +8,7 @@ import Login from './pages/login';
 import ViewProducts from './pages/viewProducts';
 import {ViewOrderDeliveryMan} from './pages/ordersDeliveryMan'
 import OrderDetails from './pages/ordersDetails';
+import CheckoutPage from './pages/checkout';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,6 +19,7 @@ root.render(
         <Route path="/" element={<Login />} />
         <Route path="/homePage/:phoneNumber" element={<ViewProducts />} />
         <Route path="/orderDetails/:orderNumber" element={<OrderDetails />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
         {/* Puedes agregar más rutas aquí */}
       </Routes>
     </BrowserRouter>

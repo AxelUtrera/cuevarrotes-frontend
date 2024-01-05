@@ -1,0 +1,136 @@
+.app {
+  max-height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.back-button-row {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+}
+
+.section-title {
+  color: #ff6600;
+  font-weight: bold;
+  font-size: 4rem;
+}
+
+.dropdown-title {
+  color: #ff6600;
+  font-weight: bold;
+  font-size: 1.5rem; /* Aumentado de lo que tenías antes */
+}
+
+.confirm-button {
+  font-weight: bold;
+  font-size: 1.2rem;
+  /* Aumenta el tamaño del texto dentro del botón */
+  padding: 0.75rem 1rem;
+  /* Aumenta la altura del botón */
+  margin-top: 40px;
+  /* Aumenta el espacio entre el botón y el método de pago */
+  color: #fff;
+  background-color: #339900;
+  border: none;
+  width: 100%;
+  display: block;
+}
+
+.items-section {
+  width: 50%;
+  /* Cada sección ocupa la mitad del ancho de la pantalla */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Centra el contenido horizontalmente */
+  overflow-y: auto;
+  background-color: #fff;
+  border-radius: 5px;
+  height: auto;
+  /* Cambiado de 60% a auto para que dependa del contenido */
+  justify-content: flex-start;
+  flex: 1;
+}
+
+.line-divider {
+  content: '';
+  position: absolute;
+  left: 50%;
+  /* Coloca la línea en el medio */
+  top: 20px;
+  /* Espacio desde la parte superior */
+  bottom: 20px;
+  /* Espacio desde la parte inferior */
+  width: 5px;
+  /* Grosor de la línea */
+  background-color: #ff6600;
+  /* Color de la línea */
+  z-index: 10;
+  /* Asegúrate de que la línea esté sobre otros elementos si es necesario */
+}
+
+.error-message-row {
+  justify-content: center;
+}
+
+.error-message {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
+.btn-round {
+  display: inline-flex;
+  /* Utiliza flexbox para centrar el contenido */
+  justify-content: center;
+  /* Centra horizontalmente el contenido del botón */
+  align-items: center;
+  /* Centra verticalmente el contenido del botón */
+  width: 35px;
+  /* Tamaño más pequeño */
+  height: 30px;
+  /* Altura igual al ancho para hacerlo redondo */
+  padding: 0;
+  border-radius: 100%;
+  /* Redondear completamente los bordes */
+  font-size: 16px;
+  /* Ajustar tamaño del signo "+" si es necesario */
+  margin-left: 0.5rem;
+  /* Añadir un poco de margen a la izquierda si es necesario */
+  margin-top: 1.3rem;
+  line-height: 1;
+  /* Asegúrate de que la línea no afecte el centrado */
+}
+
+.items-title h3 {
+  text-align: center;
+  color: #ff6600; /* Color naranja */
+  font-weight: bold;
+  font-size: 2em; /* Tamaño grande del título */
+}
+
+/* Estilos para la lista de artículos y la imagen */
+.section-middle .item {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e1e1e1; /* Bordes para separar los artículos */
+  padding: 0.5rem;
+  border-radius: 0.5rem; /* Bordes redondeados */
+  margin-bottom: 1rem; /* Espacio entre artículos */
+}
+
+.section-middle .item img {
+  width: 100px; /* Ancho fijo para la imagen */
+  height: auto; /* Altura automática para mantener la proporción */
+  margin-right: 1rem; /* Espacio a la derecha de la imagen */
+}
+
+.quantity-controls button {
+  margin: 0 0.5rem; /* Espacio entre botones y número */
+}
+
+.section-middle .item .remove-button {
+  margin-left: 1rem; /* Añade margen a la izquierda */
+}
