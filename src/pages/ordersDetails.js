@@ -31,6 +31,7 @@ const OrderDetails = () => {
     const { orderNumber, employeeNumber } = useParams();
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
+    const [isMapLoaded, setIsMapLoaded] = useState(false);
 
 
     const clicShowModal = () => {
@@ -112,6 +113,7 @@ const OrderDetails = () => {
 
     const onLoad = async (map) => {
         setMap(map);
+        setIsMapLoaded(true);
         directionsRenderer.current = new window.google.maps.DirectionsRenderer();
         directionsRenderer.current.setMap(map);
         directionsService.current = new window.google.maps.DirectionsService();
@@ -178,6 +180,14 @@ const OrderDetails = () => {
         };
     }, []);
 
+
+    useEffect(() => {
+        if (isMapLoaded) {
+            calculateAndDisplayRoute();
+        }
+    }, [isMapLoaded, branchLocation, destinationMarker]);
+
+    
     return (
         <>
 
