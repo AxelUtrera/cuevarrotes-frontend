@@ -103,6 +103,11 @@ const ViewProducts = () => {
     }
 
 
+    const navigateToCheckout = () =>{
+        navigate(`/checkout/${phoneNumber}`)
+    }
+
+
     useEffect(() => {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(function (position) {
@@ -191,9 +196,9 @@ const ViewProducts = () => {
                     </Navbar.Brand>
                     <Navbar.Toggle />
                     <Navbar.Collapse className="justify-content-end">
-                        <Link to="/checkout">
+                        <a onClick={navigateToCheckout} style={{ cursor: 'pointer' }}>
                             <img src={cart} width="40" height="40" className="d-inline-block align-top" alt="Customer Cart" />
-                        </Link>
+                        </a>
                         <a onClick={navigateToProfile} style={{ cursor: 'pointer' }}>
                             <img src={profile} width="40" height="40" className="d-inline-block align-top" alt='Profile Pic' />
                         </a>

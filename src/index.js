@@ -31,7 +31,8 @@ root.render(
         <Route path="/addAddress/:phoneNumber" element={<AddAddressCustomer />} />
         <Route path="/register" element={<RegisterCustomer />} />
         <Route path="/orderHistory/:phoneNumber" element={<OrderHistory />} />
-        <Route path="/paymentMethod" element={<PaymentMethodForm />} />
+        <Route path="/paymentMethod/:phoneNumber" element={<PaymentMethodForm />} />
+        <Route path="/checkout/:phoneNumber" element={<CheckoutPage />} />
         {/*Employee routes */}
         <Route path="/administratorMenu" element={<AdministratorMenu />} />
         <Route path="/orderDetails/:orderNumber/:employeeNumber" element={<OrderDetails />} />
@@ -40,10 +41,8 @@ root.render(
         {/*Administrator routes */}
         <Route path="/registerProduct" element={<RegisterProduct />} />
         <Route path="/createBranch" element={<App />} />
-
         <Route path="/orderDetails/:orderNumber" element={<OrderDetails />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        {/* Puedes agregar más rutas aquí */}
+        
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

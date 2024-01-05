@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Card, Button, Form, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../components/styles/payment.css";
+import { useNavigate, useParams } from 'react-router';
 
 function PaymentMethodForm() {
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         cardNumber: '',
         cardHolder: '',
@@ -13,17 +15,23 @@ function PaymentMethodForm() {
         issuer: 'Visa',
     });
     const [error, setError] = useState('');
+    const {phoneNumber} = useParams();
 
     const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    if (name === "cardNumber" || name === "cvv") {
-        const numbersOnly = value.replace(/[^\d]/g, '');
-        setFormData({ ...formData, [name]: numbersOnly });
-    } else {
-        // Esto manejará correctamente el campo 'cardHolder' y cualquier otro campo no numérico
-        setFormData({ ...formData, [name]: value });
+        const { name, value } = event.target;
+        if (name === "cardNumber" || name === "cvv") {
+            const numbersOnly = value.replace(/[^\d]/g, '');
+            setFormData({ ...formData, [name]: numbersOnly });
+        } else {
+            // Esto manejará correctamente el campo 'cardHolder' y cualquier otro campo no numérico
+            setFormData({ ...formData, [name]: value });
+        }
+    };
+
+
+    const navigateToHome = () => {
+        navigate(`/homePage/${phoneNumber}`)
     }
-};
 
 
     const validateFields = () => {
@@ -60,12 +68,12 @@ function PaymentMethodForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+
         // Verifica que los campos son válidos antes de enviar
         if (!validateFields()) {
             return;
         }
-        
+
         // Datos del formulario para enviar a la API
         const paymentData = {
             tipo: formData.issuer,
@@ -74,7 +82,7 @@ function PaymentMethodForm() {
             cvv: formData.cvv,
             titular: formData.cardHolder
         };
-    
+
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/addPaymentMethod`, {
                 method: 'POST',
@@ -85,12 +93,13 @@ function PaymentMethodForm() {
                 },
                 body: JSON.stringify(paymentData)
             });
-    
+
             const result = await response.json();
-    
+
             if (response.ok) {
                 // Si la respuesta es exitosa, mostrar un popup o una alerta
                 alert('Método de pago agregado con éxito.');
+                navigateToHome()
             } else {
                 // Si hay un error en la respuesta y es específicamente el de tarjeta previamente registrada
                 if (result.message === "Tarjeta previamente registrada") {
@@ -105,13 +114,13 @@ function PaymentMethodForm() {
             setError('Error al conectar con el servicio. Por favor, intente más tarde.');
         }
     };
-    
+
 
     return (
         <div className="payment-method-form-container">
             <Card className="payment-method-card">
                 <Card.Body>
-                    <a href="#" className="return-link">← Regresar</a>
+                    <a onClick={navigateToHome} className="return-link">← Regresar</a>
                     <h2 className="form-title">Nuevo método de pago</h2>
                     {error && <Alert variant="danger" className="error-message">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>

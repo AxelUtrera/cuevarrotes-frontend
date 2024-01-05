@@ -104,7 +104,7 @@ const EditProfileCustomer = () => {
     }
 
     const navigateToAddPayment = () => {
-        navigate(``)
+        navigate(`/paymentMethod/${phoneNumber}`)
     }
 
     const navigateToHistory = () => {
