@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Card, Button, Form, Alert } from 'react-bootstrap';
 import "../components/styles/employeeRegistration.css"; 
+import { useNavigate } from 'react-router-dom';
 
 function EmployeeRegistrationForm() {
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         nombre: '',
         apellido: '',
@@ -18,6 +20,11 @@ function EmployeeRegistrationForm() {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
     };
+
+
+    const navigateToMenu = () => {
+        navigate('/administratorMenu')
+    }
 
     const validateFields = () => {
         const { nombre, apellido, numero, nss, contrasena, confirmarContrasena } = formData;
@@ -94,7 +101,7 @@ function EmployeeRegistrationForm() {
         <div className="employee-registration-form-container">
             <Card className="employee-registration-card">
                 <Card.Body>
-                    <a href="#" className="return-link">← Regresar</a>
+                    <a onClick={navigateToMenu} className="return-link">← Regresar</a>
                     <h2 className="form-title">Nuevo Empleado</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
