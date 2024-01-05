@@ -18,7 +18,7 @@ function App() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem('token'); // Obtén el token del localStorage
+        const token = localStorage.getItem('token'); 
         if (!token) {
             console.error('No hay token disponible');
             setIsDisabled(true);
@@ -34,7 +34,7 @@ function App() {
             .then(data => {
                 setMetodosPago(data);
                 if (data && data.length === 0) {
-                    setIsDisabled(true); // Deshabilita el dropdown si no hay métodos de pago
+                    setIsDisabled(true); 
                 }
             })
             .catch(error => {
@@ -47,7 +47,7 @@ function App() {
             .then(data => {
                 setDirecciones(data);
                 if (data && data.length === 0) {
-                    setIsDisabled(true); // Deshabilita el dropdown si no hay direcciones
+                    setIsDisabled(true);
                 }
             })
             .catch(error => {
@@ -57,11 +57,11 @@ function App() {
     }, []);
 
     useEffect(() => {
-        const token = localStorage.getItem('token'); // Obtén el token del localStorage
+        const token = localStorage.getItem('token'); 
         if (!token) {
             console.error('No hay token disponible');
             setIsDisabled(true);
-            setIsCartEmpty(true); // Asumimos que el carrito está vacío si no hay token
+            setIsCartEmpty(true);
             return;
         }
 
@@ -73,16 +73,16 @@ function App() {
             .then(response => response.json())
             .then(data => {
                 if (data.length === 0) {
-                    setIsCartEmpty(true); // El carrito está vacío
+                    setIsCartEmpty(true); 
                     setError('El carrito de compra está vacío por el momento');
                 } else {
                     setCartItems(data);
-                    setIsCartEmpty(false); // Hay artículos en el carrito
+                    setIsCartEmpty(false);
                 }
             })
             .catch(error => {
                 console.error('Error al cargar los artículos del carrito', error);
-                setIsCartEmpty(true); // Asumimos que el carrito está vacío si hay un error
+                setIsCartEmpty(true);
             });
     }, []);
 
@@ -100,7 +100,7 @@ function App() {
         const sucursalInfo = JSON.parse(localStorage.getItem("actualBranch"));
         const token = localStorage.getItem('token');
 
-        // Datos del pedido para enviar a la API
+       
         const orderData = {
             metodoPago: `${selectedPaymentMethod.tipo} ${selectedPaymentMethod.numTarjeta.slice(-4)}`,
             direccion: selectedDireccion,
@@ -328,7 +328,7 @@ function App() {
                                 </div>
                             ))
                         ) : (
-                            // Si el carrito está vacío, se mostrará este mensaje
+                            
                             <p className="empty-cart-message">Carrito de compras vacío</p>
                         )}
                     </div>

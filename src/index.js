@@ -18,6 +18,7 @@ import ViewProducts from './pages/viewProducts'
 import { AdministratorMenu } from './pages/administratorMenu';
 import CheckoutPage from './pages/checkout';
 import PaymentMethodForm from './pages/registerPaymentMethod';
+import EmployeeRegistrationForm from './pages/registerEmployee';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -37,6 +38,7 @@ root.render(
         <Route path="/orderDetails/:orderNumber/:employeeNumber" element={<OrderDetails />} />
         <Route path="/orderGestion" element={<OrderGestion />} />
         <Route path="/asignedOrders/:employeeNumber" element={<ViewOrderDeliveryMan />} />
+        <Route path="/registerEmployee" element={<EmployeeRegistrationForm />} />
         {/*Administrator routes */}
         <Route path="/registerProduct" element={<RegisterProduct />} />
         <Route path="/createBranch" element={<App />} />
