@@ -75,7 +75,7 @@ const OrderDetails = () => {
                 setDestinationMarker(destinationCoordinates);
                 setBranchLocation(branchCoordinates);
                 
-                console.log(destinationMarker)
+                console.log(destinationCoordinates)
                 console.log(branchCoordinates)
 
             }

@@ -30,7 +30,7 @@ root.render(
         <Route path="/editProfile/:phoneNumber" element={<EditProfileCustomer />} />
         <Route path="/addAddress/:phoneNumber" element={<AddAddressCustomer />} />
         <Route path="/register" element={<RegisterCustomer />} />
-        <Route path="/orderHistory/:phoneNumber" element={<OrderHistory />} />
+        <Route path="/orderHistory/:customerPhoneNumber" element={<OrderHistory />} />
         <Route path="/paymentMethod/:phoneNumber" element={<PaymentMethodForm />} />
         <Route path="/checkout/:phoneNumber" element={<CheckoutPage />} />
         {/*Employee routes */}
