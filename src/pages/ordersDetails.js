@@ -69,8 +69,8 @@ const OrderDetails = () => {
                 };
 
                 const destinationCoordinates = {
-                    lng: parseFloat(data.order.ubicacion.longitud),
-                    lat: parseFloat(data.order.ubicacion.latitud)
+                    lng: parseFloat(data.order.ubicacion.lng),
+                    lat: parseFloat(data.order.ubicacion.lat)
                 };
 
                 setDestinationMarker(destinationCoordinates);
