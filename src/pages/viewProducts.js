@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { haversineDistance } from '../Logic/haversine';
 import { Container, Form, Navbar, Card, Row, Col, Button, Spinner, Alert, ButtonGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import '../components/styles/NavBar.css'
 import '../components/componentsUI.css'
 import logo from '../components/img/logo.png'
@@ -86,11 +87,11 @@ const ViewProducts = () => {
                 throw new Error('Error al añadir el producto');
             }
 
-            if(response.ok){
+            if (response.ok) {
                 setShowSuccessMessage(true);
             }
-            
-            
+
+
         } catch (error) {
             console.error('Error en la solicitud:', error);
         }
@@ -137,6 +138,9 @@ const ViewProducts = () => {
             });
 
             setClosestBranch(closestBranch);
+
+            localStorage.setItem('actualBranch', JSON.stringify(closestBranch));
+
             setDistance(minDistance);
             if (minDistance > 5) {
                 setLoading(false);
@@ -187,9 +191,9 @@ const ViewProducts = () => {
                     </Navbar.Brand>
                     <Navbar.Toggle />
                     <Navbar.Collapse className="justify-content-end">
-                        <a href="#" style={{ cursor: 'pointer' }}>
+                        <Link to="/checkout">
                             <img src={cart} width="40" height="40" className="d-inline-block align-top" alt="Customer Cart" />
-                        </a>
+                        </Link>
                         <a onClick={navigateToProfile} style={{ cursor: 'pointer' }}>
                             <img src={profile} width="40" height="40" className="d-inline-block align-top" alt='Profile Pic' />
                         </a>

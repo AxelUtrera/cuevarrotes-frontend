@@ -16,6 +16,7 @@ import { RegisterProduct } from './pages/registerProductAdministrator';
 import { OrderHistory } from './pages/viewOrdersCustomer';
 import ViewProducts from './pages/viewProducts'
 import { AdministratorMenu } from './pages/administratorMenu';
+import CheckoutPage from './pages/checkout';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -39,6 +40,9 @@ root.render(
         <Route path="/registerProduct" element={<RegisterProduct />} />
         <Route path="/createBranch" element={<App />} />
 
+        <Route path="/orderDetails/:orderNumber" element={<OrderDetails />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        {/* Puedes agregar más rutas aquí */}
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
