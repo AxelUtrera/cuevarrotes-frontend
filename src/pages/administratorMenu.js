@@ -16,6 +16,10 @@ const AdministratorMenu = () => {
         navigate("/createBranch")
     }
 
+    const navigateToRegisterUser = () => {
+        navigate("")
+    }
+
     return (
         <>
             <Navbar className=" nav">
@@ -32,6 +36,7 @@ const AdministratorMenu = () => {
             <Container className='mt-4'>
                 <AcceptButton buttonText='Crear Producto' onClickMethod={navigateToCreateProduct} />
                 <AcceptButton buttonText='Crear Sucursal' onClickMethod={navigateToCreateBranch} />
+                <AcceptButton buttonText='Registrar Usuario' onClickMethod={navigateToRegisterUser} />
             </Container>
         </>
 

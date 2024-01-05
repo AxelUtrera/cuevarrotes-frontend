@@ -29,7 +29,7 @@ root.render(
         <Route path="/editProfile/:phoneNumber" element={<EditProfileCustomer />} />
         <Route path="/addAddress/:phoneNumber" element={<AddAddressCustomer />} />
         <Route path="/register" element={<RegisterCustomer />} />
-        <Route path="/orderHistory" element={<OrderHistory />} />
+        <Route path="/orderHistory/:phoneNumber" element={<OrderHistory />} />
         {/*Employee routes */}
         <Route path="/administratorMenu" element={<AdministratorMenu />} />
         <Route path="/orderDetails/:orderNumber/:employeeNumber" element={<OrderDetails />} />

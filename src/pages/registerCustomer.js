@@ -3,6 +3,7 @@ import { AcceptButton, ExceptionMessage } from "../components/componentsUI";
 import { Container, Form, Row, Col } from "react-bootstrap";
 import { encriptPassword } from '../Logic/utilities';
 import '../components/componentsUI.css'
+import { useNavigate } from 'react-router-dom';
 
 const RegisterCustomer = () => {
     const [registrationStatus, setRegistrationStatus] = useState(null);
@@ -15,6 +16,7 @@ const RegisterCustomer = () => {
         contrasenia: '',
         confirmarContrasenia: ''
     });
+    const navigate = useNavigate()
 
 
     const handleChange = (e) => {
@@ -65,6 +67,7 @@ const RegisterCustomer = () => {
 
                     if (registerResponse.ok) {
                         setRegistrationStatus('success');
+                        navigateToLogin()
                     } else {
                         setRegistrationStatus('error');
                     }
@@ -84,6 +87,10 @@ const RegisterCustomer = () => {
         const phoneNumberRegex = /^\d{10}$/;
         return phoneNumberRegex.test(phoneNumber);
     };
+
+    const navigateToLogin = () => {
+        navigate('/')
+    }
 
 
     const arePasswordsMatching = () => {
@@ -136,6 +143,7 @@ const RegisterCustomer = () => {
                 </Form.Group>
 
                 <AcceptButton buttonText='Registrarse' onClickMethod={sendCustomerData} />
+                <AcceptButton buttonText='Regresar' onClickMethod={navigateToLogin} />
 
                 {registrationStatus === 'success' && (
                     <div className="text-success">Registro exitoso. ¡Bienvenido!</div>

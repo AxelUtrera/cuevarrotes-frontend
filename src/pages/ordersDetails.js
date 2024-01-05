@@ -96,7 +96,7 @@ const OrderDetails = () => {
             if (!response.ok) {
                 throw new Error('Error al obtener los datos');
             } else {
-                navigate('/')
+                navigateToOrdersAsigned();
             }
         } catch (error) {
             console.error('Error en la solicitud:', error);
@@ -156,7 +156,7 @@ const OrderDetails = () => {
             if (!response.ok) {
                 throw new Error('Error al obtener los datos');
             } else {
-                navigate('/')
+                navigateToOrdersAsigned();
             }
         } catch (error) {
             console.error('Error en la solicitud:', error);
