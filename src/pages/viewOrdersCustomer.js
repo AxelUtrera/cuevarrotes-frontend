@@ -201,7 +201,7 @@ const OrderHistory = () => {
                                     <Button variant="success" className="btn-custom w-75" onClick={() => handleToggleOrderDetails(order.numPedido)}>
                                         {expandedOrder === order.numPedido ? 'Colapsar' : 'Ver pedido'}
                                     </Button>
-                                    {order.estado === "Preparandose" && (
+                                    {order.estado === "Procesandose" && (
                                         <Button
                                             variant="danger"
                                             className="btn-custom w-75"
