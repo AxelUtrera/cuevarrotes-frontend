@@ -17,7 +17,7 @@ const AdministratorMenu = () => {
     }
 
     const navigateToRegisterUser = () => {
-        navigate("")
+        navigate("/registerEmployee")
     }
 
     return (
