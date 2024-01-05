@@ -17,6 +17,7 @@
     "react-google-autocomplete": "^2.7.3",
     "react-router-dom": "^6.20.0",
     "react-scripts": "5.0.1",
+    "reactstrap": "^9.2.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
