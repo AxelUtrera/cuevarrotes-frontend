@@ -299,7 +299,7 @@ function App() {
                                 ))}
                             </DropdownButton>
 
-                            <Link to="/agregar-metodo" className="btn btn-success btn-sm btn-round">+</Link>
+                            <Link to="/paymentMethod" className="btn btn-success btn-sm btn-round">+</Link>
                         </div>
 
                     </Col>

@@ -17,7 +17,7 @@ import { OrderHistory } from './pages/viewOrdersCustomer';
 import ViewProducts from './pages/viewProducts'
 import { AdministratorMenu } from './pages/administratorMenu';
 import CheckoutPage from './pages/checkout';
-
+import PaymentMethodForm from './pages/registerPaymentMethod';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -31,6 +31,7 @@ root.render(
         <Route path="/addAddress/:phoneNumber" element={<AddAddressCustomer />} />
         <Route path="/register" element={<RegisterCustomer />} />
         <Route path="/orderHistory" element={<OrderHistory />} />
+        <Route path="/paymentMethod" element={<PaymentMethodForm />} />
         {/*Employee routes */}
         <Route path="/administratorMenu" element={<AdministratorMenu />} />
         <Route path="/orderDetails/:orderNumber/:employeeNumber" element={<OrderDetails />} />
