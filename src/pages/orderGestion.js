@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo from '../components/img/logo.png'
 import { Navbar, Container, Spinner, Card, Col, Row, Button, Modal, Form } from "react-bootstrap";
-import { formatDate } from '../Logic/utilities';
 import '../components/componentsUI.css';
 
 
@@ -39,7 +38,7 @@ const OrderGestion = () => {
 
     const getDeliveryMans = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:9000/api/v1/employee/getDeliveryMans`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/employee/getDeliveryMans`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -61,8 +60,9 @@ const OrderGestion = () => {
 
 
     const rejectOrder = async (orderNumber) => {
+        console.log(orderNumber)
         try {
-            const response = await fetch(`http://127.0.0.1:9000/api/v1/employee/rejectOrder/${orderNumber}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/employee/rejectOrder/${orderNumber}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ const OrderGestion = () => {
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:9000/api/v1/employee/asignOrder', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/employee/asignOrder`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -129,7 +129,7 @@ const OrderGestion = () => {
                 </Container>
             </Navbar>
 
-            <h5 className='title'>Pedidos Pendientes</h5>
+            <h5 className='title ms-5'>Pedidos Pendientes</h5>
 
 
             {loading ? (
@@ -161,10 +161,10 @@ const OrderGestion = () => {
                                         </Container>
                                     </Col>
                                     <Col sm={4}>
-                                        <Button className="accept-button" onClick={() => { setShowAcceptModal(true); setOrderNumber(order.numPedido) }}>
+                                        <Button className="accept-button" onClick={() => { setShowAcceptModal(true); setOrderNumber(order.orderDetails.numPedido) }}>
                                             Aceptar
                                         </Button>
-                                        <Button className="secondary-button" onClick={() => rejectOrder(order.numPedido)}>
+                                        <Button className="secondary-button" onClick={() => rejectOrder(order.orderDetails.numPedido)}>
                                             Rechazar
                                         </Button>
                                     </Col>
@@ -187,7 +187,7 @@ const OrderGestion = () => {
                 <Modal.Body>
                     <Form.Select id="deliveryManSelect">
                         {deliveryMans.map((man, index) => (
-                            <option key={index} value={man.numEmpleado}>
+                            <option key={index} value={man.numTelefono}>
                                 {man.nombre} {man.apellidoPaterno} - {man.numEmpleado}
                             </option>
                         ))}

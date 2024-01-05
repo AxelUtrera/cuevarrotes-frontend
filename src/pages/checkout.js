@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Dropdown, DropdownButton } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../components/styles/Checkout.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function App() {
     const [direcciones, setDirecciones] = useState([]);
@@ -14,8 +14,21 @@ function App() {
     const [isCartEmpty, setIsCartEmpty] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
     const [error, setError] = useState('');
-
+    const {phoneNumber} = useParams();
     const navigate = useNavigate();
+
+
+    const navigateToHome = () => {
+        navigate(`/homePage/${phoneNumber}`)
+    }
+
+    const navigateToAddAddress = () => {
+        navigate(`/addAddress/${phoneNumber}`)
+    }
+
+    const navigateToAddPayment = () => {
+        navigate(`/paymentMethod/${phoneNumber}`)
+    }
 
     useEffect(() => {
         const token = localStorage.getItem('token'); 
@@ -233,9 +246,9 @@ function App() {
             <div className="line-divider"></div>
             <Row className="back-button-row">
                 <Col>
-                    <Link to="/" className="back-button">
+                    <a onClick={navigateToHome} className="back-button" style={{cursor: 'pointer'}}>
                         Regresar
-                    </Link>
+                    </a>
                 </Col>
             </Row>
             <Row className="order-header">
@@ -269,7 +282,7 @@ function App() {
                                     </Dropdown.Item>
                                 ))}
                             </DropdownButton>
-                            <Link to="/agregar-direccion" className="btn btn-success btn-sm btn-round">+</Link>
+                            <a onClick={navigateToAddAddress} className="btn btn-success btn-sm btn-round">+</a>
                         </div>
                     </Col>
 
@@ -299,7 +312,7 @@ function App() {
                                 ))}
                             </DropdownButton>
 
-                            <Link to="/paymentMethod" className="btn btn-success btn-sm btn-round">+</Link>
+                            <a onClick={navigateToAddPayment} className="btn btn-success btn-sm btn-round">+</a>
                         </div>
 
                     </Col>

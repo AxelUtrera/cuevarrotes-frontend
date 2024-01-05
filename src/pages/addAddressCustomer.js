@@ -130,6 +130,7 @@ const AddAddressCustomer = () => {
 
                 if (registerResponse.ok) {
                     setRegistrationStatus('success');
+                    navigateToHome()
                 } else {
                     setRegistrationStatus('error');
                 }

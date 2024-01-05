@@ -59,7 +59,6 @@ const OrderDetails = () => {
                 throw new Error('Error al obtener los datos');
             } else {
                 const data = await response.json();
-
                 setOrderDetails(data.order);
                 setOrderProducts(data.productsInfo);
 
@@ -69,12 +68,16 @@ const OrderDetails = () => {
                 };
 
                 const destinationCoordinates = {
-                    lng: parseFloat(data.order.ubicacion.longitud),
-                    lat: parseFloat(data.order.ubicacion.latitud)
+                    lng: parseFloat(data.order.ubicacion.lng),
+                    lat: parseFloat(data.order.ubicacion.lat)
                 };
 
                 setDestinationMarker(destinationCoordinates);
                 setBranchLocation(branchCoordinates);
+                
+                console.log(destinationCoordinates)
+                console.log(branchCoordinates)
+
             }
         } catch (error) {
             console.error('Error en la solicitud:', error);
@@ -96,7 +99,7 @@ const OrderDetails = () => {
             if (!response.ok) {
                 throw new Error('Error al obtener los datos');
             } else {
-                navigate('/')
+                navigateToOrdersAsigned();
             }
         } catch (error) {
             console.error('Error en la solicitud:', error);
@@ -107,7 +110,7 @@ const OrderDetails = () => {
     
 
 
-    const onLoad = (map) => {
+    const onLoad = async (map) => {
         setMap(map);
         directionsRenderer.current = new window.google.maps.DirectionsRenderer();
         directionsRenderer.current.setMap(map);
@@ -115,7 +118,7 @@ const OrderDetails = () => {
         calculateAndDisplayRoute();
     };
 
-    const calculateAndDisplayRoute = () => {
+    const calculateAndDisplayRoute =  () => {
         if (map && branchLocation && destinationMarker && directionsService.current && directionsRenderer.current) {
             const request = {
                 origin: branchLocation,
@@ -156,7 +159,7 @@ const OrderDetails = () => {
             if (!response.ok) {
                 throw new Error('Error al obtener los datos');
             } else {
-                navigate('/')
+                navigateToOrdersAsigned();
             }
         } catch (error) {
             console.error('Error en la solicitud:', error);

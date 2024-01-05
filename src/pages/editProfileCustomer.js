@@ -103,6 +103,14 @@ const EditProfileCustomer = () => {
         navigate(`/addAddress/${phoneNumber}`)
     }
 
+    const navigateToAddPayment = () => {
+        navigate(`/paymentMethod/${phoneNumber}`)
+    }
+
+    const navigateToHistory = () => {
+        navigate(`/orderHistory/${phoneNumber}`)
+    }
+
 
     return (
         <Container className="center-container">
@@ -131,7 +139,10 @@ const EditProfileCustomer = () => {
 
 
                 <AcceptButton buttonText='Guardar' onClickMethod={sendCustomerData} />
+                <AcceptButton buttonText='Historial de pedidos' onClickMethod={navigateToHistory} />
                 <AcceptButton buttonText='Agregar Dirección' onClickMethod={navigateToAddAddress} />
+                <AcceptButton buttonText='Agregar Metodo de Pago' onClickMethod={navigateToAddPayment} />
+                
                 {editStatus === 'success' && (
                     <div className="text-success">Perfil Actualizado Correctamente</div>
                 )}

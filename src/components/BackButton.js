@@ -1,9 +1,9 @@
 import React from 'react';
 import "./styles/BackButton.css";
 
-const BackButton = ({ href }) => (
+const BackButton = ({ method }) => (
   <div className="back-button">
-    <a href={href}>← Regresar</a>
+    <a onClick={method}>← Registrate!</a>
   </div>
 );
 

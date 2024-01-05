@@ -3,6 +3,7 @@ import { Container, Card, CardBody, Row, Col, Button, Collapse, Image, Modal } f
 import { formatDate } from '../Logic/utilities';
 import '../components/styles/viewOrdersCustomer.css';
 import { getPhoneNumber, cancelOrder, getProductDetails } from '../Logic/customerPetitions';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const OrderHistory = () => {
     const [ordersData, setOrdersData] = useState([]);
@@ -15,6 +16,8 @@ const OrderHistory = () => {
     const [file, setFile] = useState(null);
     const [fileUploadSuccess, setFileUploadSuccess] = useState(false);
     const [validationError, setValidationError] = useState(false);
+    const {customerPhoneNumber} = useParams()
+    const navigate = useNavigate()
 
     function fileToBase64(file) {
         return new Promise((resolve, reject) => {
@@ -35,7 +38,7 @@ const OrderHistory = () => {
                     fotografia: base64Image
                 };
 
-                const response = await fetch(`http://localhost:6969/api/v1/customer/report-incident/${selectedOrderNum}`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/report-incident/${selectedOrderNum}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -124,9 +127,9 @@ const OrderHistory = () => {
     }, []);
 
     useEffect(() => {
-        const getOrdersInfoFetch = async (phoneNumber) => {
+        const getOrdersInfoFetch = async () => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/getOrders/${phoneNumber}`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/getOrders/${customerPhoneNumber}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -178,7 +181,7 @@ const OrderHistory = () => {
     };
 
     const handleGoBack = () => {
-        // Implementar la lógica para regresar
+        navigate(`/homePage/${customerPhoneNumber}`)
     };
 
     return (

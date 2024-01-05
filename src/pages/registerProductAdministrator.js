@@ -1,6 +1,7 @@
 import React, { useState, useEffect, } from 'react';
 import { AcceptButton, ExceptionMessage } from "../components/componentsUI";
 import { Container, Form, Row, Col, FormSelect, Button } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
 
 
 const RegisterProduct = () => {
@@ -16,6 +17,11 @@ const RegisterProduct = () => {
         descripcion: '',
         imagen: ''
     });
+    const navigate = useNavigate()
+
+    const navigateToAdminMenu = () => {
+        navigate('/administratorMenu')
+    }
 
 
     useEffect(() => {
@@ -111,6 +117,7 @@ const RegisterProduct = () => {
                     });
 
                     setRegistrationStatus('success');
+                    navigateToAdminMenu()
                 } else {
                     setRegistrationStatus('error');
                 }
@@ -204,6 +211,7 @@ const RegisterProduct = () => {
             </Row>
 
             <AcceptButton buttonText='Registrar' onClickMethod={sendProductData} />
+            <AcceptButton buttonText='Regresar' onClickMethod={navigateToAdminMenu} />
 
         </Container>
     );

@@ -3,6 +3,7 @@ import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import Autocomplete from 'react-google-autocomplete';
 import { createBranch } from '../Logic/administratorPetitions';
 import "../components/styles/createBranch.css";
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   const [nombreComercial, setNombreComercial] = useState('');
@@ -16,6 +17,13 @@ function App() {
   const [emptyFields, setEmptyFields] = useState([]);
   const [responseMessage, setResponseMessage] = useState('');
   const [errorAPI, setErrorAPI] = useState('');
+  const navigate = useNavigate()
+
+
+  const navigateToAdminMenu = () => {
+    navigate('/administratorMenu')
+}
+
 
   const fetchCoordinates = async (address) => {
     try {
@@ -80,6 +88,7 @@ function App() {
       try {
         await createBranch(branchData);
         setResponseMessage('Sucursal creada exitosamente.');
+        navigateToAdminMenu()
       } catch (error) {
         setShowErrorAPI(true);
         setErrorAPI(`${error.message}`);
@@ -147,6 +156,9 @@ function App() {
           {showErrorAPI && <div className="warning-text mb-3">{errorAPI}</div>} 
           <Button variant="warning" type="submit" className="w-100">
             Registrar
+          </Button>
+          <Button variant="warning" onClick={navigateToAdminMenu} type="submit" className="w-100 mt-2">
+            Regresar
           </Button>
           {responseMessage && <div className="response-message">{responseMessage}</div>} 
         </Form>
