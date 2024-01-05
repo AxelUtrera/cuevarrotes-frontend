@@ -29,7 +29,7 @@ function App() {
             'Authorization': `Bearer ${token}`
         });
 
-        fetch('http://localhost:6969/api/v1/customer/paymentMethods', { headers })
+        fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/paymentMethods`, { headers })
             .then(response => response.json())
             .then(data => {
                 setMetodosPago(data);
@@ -42,7 +42,7 @@ function App() {
                 setIsDisabled(true);
             });
 
-        fetch('http://localhost:6969/api/v1/customer/addresses', { headers })
+        fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/addresses`, { headers })
             .then(response => response.json())
             .then(data => {
                 setDirecciones(data);
@@ -69,7 +69,7 @@ function App() {
             'Authorization': `Bearer ${token}`
         });
 
-        fetch('http://localhost:6969/api/v1/customer/shoppingCart', { headers })
+        fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/shoppingCart`, { headers })
             .then(response => response.json())
             .then(data => {
                 if (data.length === 0) {
@@ -110,7 +110,7 @@ function App() {
         console.log(orderData);
 
         try {
-            const response = await fetch('http://localhost:6969/api/v1/customer/registerOrder', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/registerOrder`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ function App() {
             if (response.ok) {
 
                 try {
-                    const response = await fetch('http://localhost:6969/api/v1/customer/user/phone', {
+                    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/user/phone`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`
@@ -155,7 +155,7 @@ function App() {
     const updateCartItem = async (productId, newQuantity) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch('http://localhost:6969/api/v1/customer/shoppingCart', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/shoppingCart`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -176,7 +176,7 @@ function App() {
     const deleteCartItem = async (productId) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch(`http://localhost:6969/api/v1/customer/shoppingCart`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/shoppingCart`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

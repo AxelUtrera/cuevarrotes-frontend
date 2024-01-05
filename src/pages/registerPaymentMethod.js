@@ -76,7 +76,7 @@ function PaymentMethodForm() {
         };
     
         try {
-            const response = await fetch('http://localhost:6969/api/v1/customer/addPaymentMethod', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/customer/addPaymentMethod`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
